@@ -5,14 +5,15 @@ html(lang="vn")
         meta(name="apple-mobile-web-app-capable" content="yes")
         meta(name="mobile-web-app-capable" content="yes")
 
-        meta(name="keywords", content="Teamshow, tro choi chien luoc, win win, strategy game")
-        meta(name="description", content="Teamshow la mot tro choi chien luoc win win, Teamshow is a win win strategy game")
+        meta(name="keywords", content="Dinh cu Uc, du hoc Uc")
+        meta(name="description", content="Dinh cu Uc, du hoc Uc, Du lich Uc, Dinh cu USA, du hoc USA, du lich USA, tu van dinh cu Uc, tu van du hoc Uc")
 
         block title
-            title Teamshow | Tro choi chien luoc win win
+            title 
         
         //-- BOWER 
-        script(src="/bower_components/jquery/dist/jquery.min.js")
+        //- script(src="/bower_components/jquery/dist/jquery.min.js")
+        script(src="https://code.jquery.com/jquery-2.2.4.min.js")
         
         link(rel='stylesheet', href='/bower_components/materialize/dist/css/materialize.min.css')
         script(src="/bower_components/materialize/dist/js/materialize.min.js")
@@ -75,7 +76,7 @@ html(lang="vn")
 
             window.scrollTo(0,1);
 
-            $(document).ready(function(){
+            jQuery(document).ready(function(){
                 
                 // COLOR in custom.js or set here 
                 //- var COLOR = "pink";
@@ -94,6 +95,7 @@ html(lang="vn")
                 
 
                 //-- others
+                
 
                 $('.button-collapse').show();
                 $(".button-collapse").sideNav();
@@ -104,7 +106,7 @@ html(lang="vn")
                 $('.btn').addClass("waves-effect waves-light");
                 $('.btn-floating').addClass("waves-effect waves-light");
 
-                //- $(".parallax").parallax();
+                $(".parallax").parallax();
 
                 //-- animate.css
                 $('.btn, .btn-floating').addClass('animated shake');
