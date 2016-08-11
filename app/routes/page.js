@@ -1,8 +1,20 @@
 var modelName = 'page'; //--edit here movie to user modelName = viewName
 var routePath = '/pages';  //--edit here -- routePath+'/:id'
+var homepage = "page/dinhcu" //--EDIT homepage 
 
 var express = require('express');
 var router = express.Router();
+
+
+//route to home page
+router.get('/', function(req, res) {
+    var results = {
+        title: 'Home', //-- EDIT to show navbar
+        message: '', 
+        user: req.user
+    };
+    res.render(homepage, results);
+});
 
 
 router.get('/game', function(req, res) {
@@ -26,18 +38,6 @@ router.get('/game', function(req, res) {
     
     res.render('teamshow', results);
 });
-
-
-//route to home page
-router.get('/', function(req, res) {
-    var results = {
-        title: 'Home',
-        message: '', 
-        user: req.user
-    };
-    res.render('page/parallax', results);
-});
-
 
 //-- TEST -----------
 

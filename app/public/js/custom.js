@@ -6,7 +6,9 @@ var colors = [
     "brown", "grey", "blue-grey", "black"      // 16 17 18 19
 ];
 
-var i = getRandomInteger(0,19);
+colors = ['green', 'deep-purple']
+
+var i = getRandomInteger(0,2);
 // i = 3;
 var COLOR = colors[i].toString();
 
