@@ -1,0 +1,16 @@
+﻿- var utf = "\ufeff"
+#{utf}
+h3 Report (from: #{from} to: #{to})
+    - var cols = ['No', 'Username', 'Email', 'BOD','Role', 'Action'];
+    table
+        thead
+            each row, index in cols
+                th=row
+        tbody
+            each row, index in model
+                tr 
+                    td=index+1
+                    td #{row.username} 
+                    td #{row.email}
+                    td #{row.birthday ? row.birthday.toISOString().slice(0,10) : ''}
+                    td #{row.role}

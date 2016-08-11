@@ -1,0 +1,10 @@
+[
+    {
+        "username": "admin",
+        "role": "admin", 
+        "activated": true,
+        "name": "Nguyen Cong Vu",
+        "email": "nguyencongvu@gmail.com",
+        "source": "game"
+    }
+]

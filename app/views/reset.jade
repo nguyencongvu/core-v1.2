@@ -1,0 +1,36 @@
+extends layout 
+
+block title
+    title #{title} 
+block content
+    #login-page()
+        div(style="margin:0 auto;").row.center-align
+            .col.s12.m4.l4.offset-l4.offset-m4
+                .card-panel.z-depth-4  
+                    div(style="margin:-20px").main-color 
+                        a(href="/")
+                            img(src='/img/logo_white.png', width="40%", class="responsive-img valign")
+                    
+                    div(style="margin-bottom:40px;")
+
+                    form(action='/reset/#{token}', method='post').left-align
+                        .row 
+                            .input-field.col.s12
+                                i(class="fa fa-lock prefix")
+                                input(type="password", name="password", required).validate    
+                                label(for="password") Password
+                            .input-field.col.s12
+                                i(class="fa fa-lock prefix")
+                                input(type="password", name="password_confirm", required).validate    
+                                label(for="password_confirm") Password confirm
+                            .input-field.col.s6
+                                input(type="submit", name="submit", value="Reset" class="btn orange col s12 animated bounce") 
+                        
+
+    script.
+        $(document).ready(function(){
+            var msg = '#{message}' || "";
+            if (msg!="")
+                Materialize.toast(msg,3000, 'rounded'); 
+
+        });        

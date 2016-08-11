@@ -1,0 +1,190 @@
+extends ../layout
+
+block title
+    title Report
+block content
+    - var controller = '/reports' //-- EDIT  #{controller}
+    div.navbar-fixed
+        nav#nav.darken-4.center-align 
+            div.nav-wrapper 
+                a(class='brand-logo center')    
+                span(style="font-size:200%").white-text #{title}  
+                
+                ul.left 
+                    li
+                        a(href="#" data-activates="sidebar" class="button-collapse")
+                            i(class="fa fa-bars")
+    .row    
+        .container 
+                .card-panel
+                    ul.tabs
+                        li.tab.col.s4
+                            a(href="#khachhang").main-color-text Khách hàng 
+                        li.tab.col.s4
+                            a(href="#donhang").main-color-text Đặt hàng     
+                        li.tab.col.s4
+                            a(href="#chamsoc").main-color-text Chăm sóc 
+                    .divider
+                    .row#khachhang 
+                        .col.s12.m7   
+                            .card-content 
+                                h2 
+                                    b #{model.client.name}
+                                p Người báo cáo: 
+                                    b #{model.createdBy.username}
+                                p Loại: #{model.type}
+                                p Ngày: #{moment(model.createdAt).format('DD/MM/YYYY HH:mm:ss')}
+                                p Địa chỉ: #{model.client.address}
+                                p Địa bàn: #{model.area.district}
+                                .chip
+                                    b Liên hệ: #{model.contact.name}
+                                    span.left10
+                                    a(href="tel:#{model.contact.phone}") 
+                                        i(class="fa fa-phone") 
+                                        span.left10 #{model.contact.phone}
+                                p Phản hồi: !{model.feedback.comment}
+                                p Ghi chú: !{model.report.comment}
+                            
+                            .card-action 
+                                a(href='#{controller}/#{model._id}/update').btn.orange Update  
+                                span.right10
+                                a(href='#{controller}/#{model._id}/order').btn.orange.lighten-2 Order   
+                                span.right10
+                                h4
+                                    a(href='#{controller}').main-color-text 
+                                        i().fa.fa-th-list
+                                        span.left10 Back to List  
+                                
+                                
+                        .col.s12.m5   
+                            .card-content
+                                h2 
+                                    b Hình ảnh 
+                                each row, index in model.photos
+                                    .card-panel.z-depth-0.grey.lighten-4
+                                        .row 
+                                            img(src='/uploads/'+'#{row.src}' class="responsive-img materialboxed")                           
+                    .row#donhang 
+                        .col.s12   
+                            .card-content 
+                                h2 
+                                    b   Tổng giá trị 
+                                        span.total  
+                                table.table.bordered.striped
+                                    tr 
+                                        td Sản phẩm
+                                        td Số lượng
+                                        td Đơn giá
+                                        td Thành tiền 
+                                    each row, index in model.order
+                                        tr 
+                                            td #{row.item} 
+                                            td #{row.quantity} 
+                                            td #{row.price}
+                                            td.amount #{row.quantity*row.price}
+                                p   
+                                    b Ghi chú: #{model.shipping}
+                                p
+                                    a(href='#{controller}/#{model._id}/order').btn.orange Edit All Orders
+                                    i.left10 Tất cả order sẽ bị xóa nhập lại
+                                
+
+                    .row#chamsoc
+                        .card-content 
+                            .col.s12.m5 
+                                h2 
+                                    b Ghi nhận mới
+                                form(id="formCare",action="#{controller}/#{model._id}/care?_method=PUT", method="post")
+                                    .input-field
+                                        input(type="text", name="comment", required).validate
+                                        label Ghi nhận
+
+                                        - var createdAt = new Date()
+                                        - var createdBy = user._id
+                                        input(type="hidden", name="createdAt", value="#{createdAt}")
+                                        input(type="hidden", name="createdBy", value="#{createdBy}")
+
+                                        b 
+                                            a(id="btnCareAdd").btn.orange Add     
+
+                            .col.s12.m7
+                                h2 
+                                    b Thông tin chăm sóc
+                                ul#careList
+                                    each row2, index in model.care
+                                        li 
+                                            p 
+                                                b #{moment(row2.createdAt).format('DD/MM/YYYY HH:mm:ss')}
+                                                br
+                                                span #{row2.comment}
+    script.
+        
+        var ACTION = { 
+            onReady:function(){
+                //showProgress(true);
+                init();
+                
+                //-- bind ACTION 
+                $(document).on('click', '#btnCareAdd', ACTION.careAdd);
+
+            }, 
+            careAdd: function(e){
+                e.preventDefault();   
+                
+                //ajax to ul#careList
+                var form=$("#formCare");    //-- EDIT: form name --
+                var res;
+
+                $.ajax({
+                    url: form.attr('action'), 
+                    type: form.attr('method'), //ussallly GET
+                    data: form.serialize(),        
+                    start: function(){
+                    },
+                    complete: function(){
+                    },
+                    success: function(data){
+                        
+                        //-- data is json  and set to List
+                        var ul = $('ul#careList');
+                        ul.empty();
+                        $.each(data.results.model,function(index,row){
+                            ul.prepend("<li><p><b>"+moment(row.createdAt).format('DD/MM/YYYY HH:mm:ss')+"</b><br>"+row.comment+"</p></li>");
+                        });
+                        
+                    },     
+                    error: function (err){
+                        console.log(err);
+                    }
+               });
+            }, 
+
+        }
+
+        $( document ).ready( ACTION.onReady );
+
+        //--------- CUSTOM ------------------
+        function init(){
+            var msg = '#{message}' || "";
+            if (msg!="")
+                Materialize.toast(msg,3000, 'rounded'); 
+
+            //-- plugins
+            $('ul.tabs').tabs(); 
+
+            var sum = 0;
+            // iterate through each td based on class and add the values
+            $(".amount").each(function() {
+                var value = $(this).text();
+                // add only if the value is number
+                if(!isNaN(value) && value.length != 0) {
+                    sum += parseFloat(value);
+                }
+
+                $('span.total').html(sum);
+            });
+
+        }
+
+
+     

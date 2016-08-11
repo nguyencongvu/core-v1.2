@@ -1,0 +1,31 @@
+{
+  "name": "viennguyen_core",
+  "description": "VienNguyen Core App",
+  "main": "./bin/www",
+  "authors": [
+    "Nguyen Cong Vu"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "fontawesome#^4.6.3",
+    "materializecss-amd": "^1.0.1",
+    "moment": "^2.14.1",
+    "Chart.js": "chartjs#^2.1.6",
+    "socket.io": "^1.4.8",
+    "animate.css": "^3.5.2",
+    "notie": "^3.8.4",
+    "socket.io-client": "^1.4.8",
+    "jquery": "^3.1.0",
+    "fabric.js": "fabric#^1.6.3",
+    "materialize": "^0.97.7",
+    "slider-pro": "^1.2.2",
+    "bxslider-4": "bxSlider#^4.2.5"
+  }
+}

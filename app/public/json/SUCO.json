@@ -1,0 +1,42 @@
+[
+  {
+    "type": "ISSUE",
+    "value": "EMAIL",
+    "text": "Email"
+  },
+  {
+    "type": "ISSUE",
+    "value": "OS",
+    "text": "Hệ điều hành"
+  },
+  {
+    "type": "ISSUE",
+    "value": "VIRUS",
+    "text": "Virus"
+  },
+  {
+    "type": "ISSUE",
+    "value": "PM",
+    "text": "Phần mềm"
+  },
+  {
+    "type": "ISSUE",
+    "value": "NET",
+    "text": "Mạng LAN, Internet"
+  },
+  {
+    "type": "ISSUE",
+    "value": "IN",
+    "text": "Máy in"
+  },
+  {
+    "type": "ISSUE",
+    "value": "DATA",
+    "text": "Dữ liệu"
+  },
+  {
+    "type": "ISSUE",
+    "value": "KHAC",
+    "text": "Sự cố khác"
+  }
+]

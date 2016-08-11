@@ -1,0 +1,183 @@
+doctype html
+html
+    head
+        meta(name="viewport",content="width=device-width, initial-scale=1.0")
+        meta(name="apple-mobile-web-app-capable" content="yes")
+        meta(name="mobile-web-app-capable" content="yes")
+
+        link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+
+        block title
+            title Xong viec nhanh 
+        
+        link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css')
+
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js')
+        
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js")
+
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.6/socket.io.min.js")
+
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css')
+
+        link(rel='stylesheet', href='../link/daterangepicker.css')
+        script(src="../link/daterangepicker.js")
+
+        script(src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js")
+
+        link(rel='stylesheet', href='/css/custom.css')
+        script(src='/js/custom.js')
+
+    body(style="background: #fff;")
+        #page
+            div.navbar-fixed
+                nav
+                    div.nav-wrapper.white
+                        a(class='brand-logo center')  
+                        img(src="/img/web_header.png", height="90%")
+                        
+                        ul.left 
+                            li
+                                a(href="#" data-activates="sidebar" class="button-collapse")
+                                    i(class="fa fa-bars").grey-text.text-darken-3
+                        ul.right.hide-on-med-and-down
+                            //- li
+                            //-     a(href="/login").grey-text.text-darken-3 Home 
+                            //- li
+                            //-     a(href="/login").grey-text.text-darken-3 Intro 
+                            //- li
+                            //-     a(href="/login").grey-text.text-darken-3 Products
+                            //- li
+                            //-     a(href="/login").grey-text.text-darken-3 Photos    
+                            //- li
+                            //-     a(href="/login").grey-text.text-darken-3 Contact     
+                            li 
+                                span.grey-text Xong việc NHANH
+                            li
+                                a(href="/login", style="margin-top:10px").btn.orange.right Login
+        
+            <!-- side bar -->
+            ul#sidebar.side-nav.grey.lighten-3
+                li.light-blue.white-text
+                    div(style="padding:10px;").valign-wrapper
+                        img(class="valign", width="25%", src='/img/logo_white.png') 
+                        a(href="/profile").white-text
+                            span Quick Access 
+                //- li
+                //-     p#socket     
+                li 
+                    div.divider
+                li
+                    a(href="/login") 
+                        i(class="fa fa-key") 
+                        span(style="margin-left:10px;") Login
+                li 
+                    div.divider
+                li
+                    a(href="/Signup") 
+                        i(class="fa fa-key") 
+                        span(style="margin-left:10px;") Signup
+            
+        //- MAIN CONTENT    
+        div(style="min-height:600px;")
+            block content
+
+        footer#page-footer.grey.darken-3.white-text 
+            div(style="padding:20px;")
+                .row 
+                    .col.s12.l3
+                        h5 Vien Nguyen Software 
+                        .divider
+                        p 170C Tân Hòa Đông P.14, Q.6, TPHCM
+                        p MST: 
+                        p Phone: (08) 6694 8953 
+                        p Email: 
+                            a() info@viennguyen.com 
+                    .col.s12.l3
+                        b 
+                            i().fa.fa-tablet 
+                            span.left10 Phần mềm 
+                        .divider
+                        ul 
+                            li 
+                                a VinWin.AR
+                            li 
+                                a VinWin.SalesTracking
+                            li 
+                                a VinWin.Delivery    
+                            li 
+                                a VinWin.Advertising 
+                            li 
+                                a VinWin.TeamLead       
+                            li 
+                                a VinWin.MilUsers     
+                            li 
+                                a VinWin.Web         
+                    .col.s12.l3
+                        b 
+                            i().fa.fa-globe 
+                            span.left10 Liên kết 
+                        .divider
+                        ul 
+                            li 
+                                a Định cư, du lịch, du học Úc 
+                            li 
+                                a Thiết bị điện thông minh 
+                            li 
+                                a Dịch vụ cho doanh nghiệp nước ngoài     
+                            li 
+                                a Sách công nghệ tương tác      
+                    .col.s12.l3
+                        b 
+                            i().fa.fa-globe 
+                            span.left10 Dịch vụ gia tăng
+                        .divider
+                        ul
+                            li
+                                a() Bảo trì máy tính 
+                            li
+                                a() Thi công mạng, camera       
+                            li
+                                a() Web design, dịch vụ web  
+                            li
+                                a() Tư vấn doanh nghiệp SMB
+                            li
+                                a() Giải pháp bảo mật     
+                            li
+                                a() Cho thuê máy chủ, Firewall    
+                #footer-copyright.center-align    
+                    .container 
+                        p Copyright © 2016 by 
+                            b Vien Nguyen Software
+        
+    script.
+        window.scrollTo(0,1);
+
+        $(document).ready(function(){
+            $('.button-collapse').show();
+            $(".button-collapse").sideNav();
+
+            //$('.parallax').parallax();
+            $('.slider').slider();
+            $('.materialboxed').materialbox();
+
+            $('.btn').addClass("waves-effect waves-light");
+            $('.btn-floating').addClass("waves-effect waves-light");
+            
+        });
+
+        //--socket 
+        var socket = io.connect("http://localhost:8000");
+        socket.on("connect", function () {  
+            console.log("Connected!");
+
+            $('p#socket').html("Connected!");
+        });  
+
+        socket.on("tweet", function (data) {  
+            console.log("tweet!");
+
+            $('p#socket').html(data.user);
+        });    
+
+

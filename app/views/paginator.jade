@@ -1,0 +1,32 @@
+<!-- https://github.com/song940/mongoose-paginate -->
+ul.pagination
+    li
+        a(href="?page=1&search=#{sValue}") 
+            i(class="fa fa-step-backward")
+    li
+        a(href="?page=#{pager.prev}&search=#{sValue}") 
+            i(class="fa fa-chevron-left")
+    <!-- hien dau ... -->
+    if (pager.current-pager.options.delta>1)
+            li
+                 a(href="?page=#{pager.current-pager.options.delta-1}&search=#{sValue}") ...
+
+    each val in pager.pages
+        if (pager.current===val)
+            li.main-color.active
+                a() #{val}
+        else 
+            li
+                <!-- sValue lay tu list.jade -->
+                a(href="?page=#{val}&search=#{sValue}") #{val}
+        endif         
+    <!-- hien dau ... -->
+    if (pager.current+pager.options.delta<pager.last)
+            li
+                 a(href="?page=#{pager.current+pager.options.delta+1}&search=#{sValue}") ...    
+    li
+        a(href="?page=#{pager.next}&search=#{sValue}") 
+            i(class="fa fa-chevron-right")
+    li
+        a(href="?page=#{pager.last}&search=#{sValue}") 
+            i(class="fa fa-step-forward")

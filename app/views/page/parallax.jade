@@ -1,0 +1,154 @@
+extends layout_web
+block title 
+    title Dinh cu Uc, My | (08) 6684 8953
+    meta(http-equiv="content-type", content="#{contentType}; charset=UTF-8")
+    meta()
+
+block content 
+    div#seo
+        div.navbar-fixed
+            nav(style="height:80px; padding-top:10px")#nav.z-depth-2
+                div.nav-wrapper
+                    a(style="font-size:180%; margin-left:20px").left My Logo
+                    //- menu ul in small device
+                    ul(style="font-size:150%").right
+                        li
+                            a().fa.fa-facebook-square.social1
+                        li
+                            a().fa.fa-google.social2
+                        li
+                            a().fa.fa-twitter.social3
+                        li
+                            a().fa.fa-youtube.social4
+                        li
+                            a().fa.fa-envelope-o.social5    
+        
+        div(style="height:650px").parallax-container 
+            div.parallax
+                img(src="http://fc04.deviantart.net/fs16/f/2007/127/2/d/Wallpaper_Request_by_Finvara.jpg" alt="Teamshow")
+            section(style="padding-top:40px;")#one
+                .container
+                    h1.headline.white-text.center A NICE LOOKING HEADLINE
+                    .row 
+                        .col.s12.m5 
+                            .card-panel
+                                h2 Signup to benefit 
+                                p Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor.
+                                .input-field
+                                    input(type="email", placeholder="email@domain.com").white.grey-text
+                                .input-field
+                                    a().col.s12.m12.btn.main-color Signup now!
+                        .col.s12.m7
+                            //- div(style="padding:2px;").card-panel
+                            div(style="margin-top:8px; height:306px").video-container
+                                iframe(src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0")
+                    
+        .container 
+            div(style="margin-bottom:40px;").divider
+            .row 
+                h2.ads.center Over 1000++ players ... 
+                
+        section#two
+            .container  
+                div.slider1
+                    div.slide 
+                        img(src="http://placehold.it/350x250" title="Caption 1" alt="Teamshow")
+                    div.slide 
+                        img(src="http://placehold.it/350x250" title="Caption 2" alt="Teamshow")
+                    div.slide 
+                        img(src="http://placehold.it/350x250" title="Caption 3" alt="Teamshow")
+                    div.slide 
+                        img(src="http://placehold.it/350x250" title="Caption 4" alt="Teamshow")
+
+                div(style="margin-bottom:40px;").divider
+        section#benefit
+            .container
+                .row.center 
+                    .col.s12.m4
+                        h3.icons.main-color-text 
+                            i.fa.fa-globe.benefitIcon1
+                        p
+                            | Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor.  
+                    .col.s12.m4
+                        h3.icons.main-color-text 
+                            i.fa.fa-briefcase.benefitIcon2
+                        p
+                            | Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. 
+                    .col.s12.m4
+                        h3.icons.main-color-text
+                            i.fa.fa-thumbs-up.benefitIcon3
+                        p
+                            | Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. 
+                div(style="margin-bottom:40px;").divider
+        section#testi
+            .container
+                .row 
+                    .col.s12.m6
+                        .row 
+                            .col.s12.m6
+                                img(src="https://placehold.it/250x250" alt="Teamshow").responsive-img
+                            .col.s12.m6 
+                                h4 Customer ABC
+                                p
+                                    | Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor.Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. 
+         
+                    .col.s12.m6 
+                        .row 
+                            .col.s12.m6
+                                img(src="https://placehold.it/250x250" alt="Teamshow").responsive-img
+                            .col.s12.m6 
+                                h4  Customer XYZ
+                                p
+                                    | Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor.Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. 
+        .divider
+        section(style="margin-bottom:-20px")#subcribe.grey.lighten-3
+            .container 
+                .row
+                    .col.s12.m4
+                        h5(style="margin-top:25px;").main-color-text.right Email to subcribe 
+                    .col.s12.m6
+                        .input-field 
+                            input(style="font-size:160%", type="email").white.grey-text
+                    .col.s12.m2
+                        .input-field 
+                            a(style="margin-top:5px;").btn.main-color Subcribe
+        div(style="height:300px; margin-bottom:-20px").parallax-container 
+            div.parallax
+                img(src="http://images.frandroid.com/wp-content/uploads/2016/01/google-maps.png" alt="Teamshow")
+        footer.page-footer.grey.darken-3
+            .row
+                .col.m5.s12.white-text
+                    h5 Contact Us 
+                    p Teamshow is a strategic game, win win game, strategy game to improve player skills
+                    p Teamshow la mot cau truc tro choi chien luoc ho tro nguoi choi phat trien tinh than doi nhom teamlead
+                    ul.vcard
+                        li.fn Teamshow 
+                        li.org Teamshow.vn 
+                        li.tel (08) 6684 8953 
+                        ll
+                            a(href="/").url Teamshow
+                .col.m3.s12
+                    h5.white-text Links
+                    ul
+                        li
+                            a.grey-text.text-lighten-3(href='#!') Link about me 
+                        li
+                            a.grey-text.text-lighten-3(href='#!') Link 2
+                        li
+                            a.grey-text.text-lighten-3(href='#!') Link 3
+                        li
+                            a.grey-text.text-lighten-3(href='#!') Link 4
+                .col.m4.s12
+                    //- h5.white-text Social
+                    <iframe src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/openmize/&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1014333618610128" width="340" height="300" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+            .footer-copyright.grey.darken-4
+                .container
+                    | &copy; 2014 Copyright Text
+                    a.grey-text.text-lighten-4.right(href='#!') More Links
+
+
+                                
+
+
+    
+    

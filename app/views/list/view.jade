@@ -1,0 +1,27 @@
+extends ../layout
+
+block title
+    title List
+block content
+    .row
+        .col.s12.blue.darken-4.white-text.z-depth-1
+            .container
+                h1 
+                    i(class="fa fa-list") 
+                    span(style="margin-left:10px;") #{title} 
+    .row     
+        .container
+            .card-panel.white
+                .card-content 
+                    h2 Value: #{model.value}
+                    .divider
+                    p Type: #{model.type}
+                    p Text: #{model.text}
+                    p CreatedAt: #{model.createdAt}
+                    p
+                .card-action 
+                    a(href='/admin/lists/#{model._id}/update').btn Update  
+                    span(style="margin-right:10px;")
+                    //- a(href='/profile').btn Profile  
+                    //- span(style="margin-right:10px;")
+                    a(href='/admin/lists').btn List  

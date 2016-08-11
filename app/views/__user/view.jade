@@ -1,0 +1,33 @@
+extends ../layout
+
+block title
+    title User List
+block content
+    .row
+        .col.s12.blue.darken-4.white-text.z-depth-1
+            .container
+                h1 
+                    i(class="fa fa-user") 
+                    span(style="margin-left:10px;") #{title} 
+    .row     
+        .container
+            .card-panel.white
+                .card-content 
+                    h2 Username: #{model.username}
+                    .divider
+                    p Email: #{model.email}
+                    p Role: #{model.role}
+                    p Birthday: #{model.birthday}
+                    p
+                .card-action 
+                    a(href='/admin/users/#{model._id}/update').btn Update  
+                    span(style="margin-right:10px;")
+                    a(href='/admin/profile').btn Profile  
+                    span(style="margin-right:10px;")
+                    a(href='/admin/users').btn List  
+    script.
+        $(document).ready(function(){
+            var msg = "" || '#{message}';
+            if (msg!="")
+                Materialize.toast(msg,3000, 'rounded'); 
+        });

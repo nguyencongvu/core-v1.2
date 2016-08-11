@@ -1,0 +1,32 @@
+[
+  {
+    "type": "CUSTOMER",
+    "value": "GAL",
+    "text": "Giày An Lạc"
+  },
+  {
+    "type": "CUSTOMER",
+    "value": "IC",
+    "text": "Indochine Counsel"
+  },
+  {
+    "type": "CUSTOMER",
+    "value": "MJ",
+    "text": "MJ"
+  },
+  {
+    "type": "CUSTOMER",
+    "value": "SI",
+    "text": "Sao In"
+  },
+  {
+    "type": "CUSTOMER",
+    "value": "LTV",
+    "text": "Long Trường Vũ"
+  },
+  {
+    "type": "CUSTOMER",
+    "value": "CV",
+    "text": "Cát Vàng"
+  }
+]

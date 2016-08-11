@@ -1,0 +1,25 @@
+﻿- var utf = "\ufeff"
+#{utf}
+- function setDate(d) {
+-   return d.toLocaleDateString();
+- }
+    
+h3 Bao cao (tu 
+    span #{moment(from).format('DD/MM/YYYY')} 
+    span den 
+    span #{moment(to).format('DD/MM/YYYY')}
+    span )
+- var cols = ['No', 'Khach hang','Bao cao','Nguoi lap','Time'];
+table(border="1")
+    thead
+        each row, index in cols
+            th=row
+    tbody
+        each row, index in model
+            tr 
+                td=index+1
+                td #{row.client.name}
+                td !{row.report.comment}
+                td #{row.createdBy.username}
+                td #{moment(row.createdAt).format('DD/MM/YYYY HH:mm:ss')}
+                

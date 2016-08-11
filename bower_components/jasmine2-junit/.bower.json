@@ -1,0 +1,13 @@
+{
+  "name": "jasmine2-junit",
+  "homepage": "https://github.com/sandermak/jasmine2-junit",
+  "_release": "1388cd791d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "1388cd791d4cb59c3959cf4bd25f7f0ccb0516ef"
+  },
+  "_source": "https://github.com/sandermak/jasmine2-junit.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/sandermak/jasmine2-junit.git"
+}

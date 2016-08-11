@@ -1,0 +1,85 @@
+extends ../layout
+
+block title
+    title Import
+block content
+    - var controller = '/admin/lists' //-- EDIT  #{controller}
+    div.navbar-fixed
+        nav#nav.darken-2.center-align 
+            div.nav-wrapper 
+                a(class='brand-logo center')    
+                span(style="font-size:200%").white-text #{title}  
+                
+                ul.left 
+                    li
+                        a(href="#" data-activates="sidebar" class="button-collapse")
+                            i(class="fa fa-bars")
+    .container
+        .card-panel 
+            form(id="formImport", method="POST", action="#{controller}/importsave")
+                .input-field        
+                    p Paste json below and click
+                    a(id="btnSave",href).btn.orange Save to List collection
+                    span.right10
+                    a(href="#{controller}").btn.grey Back to List
+                .input-field
+                    label Paste json data here
+                    textarea(id="json", name="json",class="materialize-textarea")
+    
+    script.
+        
+        var ACTION = { 
+            onReady:function(){
+                //showProgress(true);
+                init();
+                
+                //-- bind ACTION 
+                $(document).on('click', '#btnSave', ACTION.btnSave);
+
+            }, 
+            btnSave: function(e){
+                e.preventDefault(); 
+                //-- do sthing 
+                var form=$("#formImport");    //-- EDIT: form name --
+                var res;
+
+                var t = $("#json").val(); 
+                var p = JSON.stringify(t);
+                console.log($("#json").val());
+
+                $.ajax({
+                    url: form.attr('action'), 
+                    type: form.attr('method'), //ussallly GET
+                    contentType: 'application/json; charset=utf-8',   
+                    data: t, 
+                    json: true,
+                    start: function(){
+                    },
+                    complete: function(){
+                    },
+                    success: function(data){
+                        alert('success!');
+                        console.log(data);
+                    },     
+                    error: function (err){
+                        alert(err);
+                        console.log(err);
+                    }
+               });
+            }
+        }
+
+        $( document ).ready( ACTION.onReady );
+
+        //--------- CUSTOM ------------------
+        function init(){
+            var msg = '#{message}' || "";
+            if (msg!="")
+                Materialize.toast(msg,3000, 'rounded'); 
+
+            //-- plugins
+            //$('ul.tabs').tabs(); 
+            $('#json').val('');
+            $('#json').trigger('autoresize');
+
+        }

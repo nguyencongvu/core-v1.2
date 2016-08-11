@@ -1,0 +1,15 @@
+User-Agent: *
+Disallow: /css
+Disallow: /img
+Disallow: /uploads
+Disallow: /js
+Disallow: /json
+Disallow: /link
+Disallow: /teamshow
+Disallow: /templates
+Disallow: /_components
+Disallow: /bower_components
+Disallow: /node_modules
+Allow: /game
+Disallow: /contact
+Disallow: /about

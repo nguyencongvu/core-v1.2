@@ -1,0 +1,140 @@
+doctype html
+html(lang="vn")
+    head
+        meta(name="viewport",content="width=device-width, initial-scale=1.0")
+        meta(name="apple-mobile-web-app-capable" content="yes")
+        meta(name="mobile-web-app-capable" content="yes")
+
+        meta(name="keywords", content="Teamshow, tro choi chien luoc, win win, strategy game")
+        meta(name="description", content="Teamshow la mot tro choi chien luoc win win, Teamshow is a win win strategy game")
+
+        block title
+            title Teamshow | Tro choi chien luoc win win
+        
+        //-- BOWER 
+        script(src="/bower_components/jquery/dist/jquery.min.js")
+        
+        link(rel='stylesheet', href='/bower_components/materialize/dist/css/materialize.min.css')
+        script(src="/bower_components/materialize/dist/js/materialize.min.js")
+
+        link(rel='stylesheet', href='/bower_components/font-awesome/css/font-awesome.min.css')
+
+       
+        //- script(src="/bower_components/moment/min/moment.min.js")
+
+        //- script(src="/bower_components/Chart.js/dist/Chart.min.js")    
+        //- script(src="/bower_components/socket.io-client/socket.io.js")
+
+        link(href="/bower_components/animate.css/animate.min.css" rel="stylesheet")
+
+        //- script(src="/bower_components/fabric.js/dist/fabric.min.js")
+
+        //- https://github.com/bqworks/slider-pro
+        link(href="/bower_components/bxslider-4/dist/jquery.bxslider.min.css" rel="stylesheet")
+        script(src="/bower_components/bxslider-4/dist/jquery.bxslider.min.js")
+
+        //--- LINK
+        link(rel='stylesheet', href='/css/custom.css')
+        script(src='/js/custom.js')
+
+    body
+        div.progress
+            div.indeterminate  
+        
+        div#content(style="min-height:600px;")
+            //- MAIN CONTENT    
+            
+            block content
+
+            if (user)        
+                footer#page-footer.grey.darken-3.white-text 
+                    div(style="padding:20px;")
+                        #footer-copyright.center-align    
+                            .container 
+                                p Copyright © 2016 by 
+                                    b Vien Nguyen Software
+            endif    
+
+        
+        script.
+
+            //- Google Analytics
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-82197343-1', 'auto');
+            ga('send', 'pageview');
+
+            $(window).on("load",function(){
+                $('.progress').fadeOut('fast',function(){
+                    $(this).remove();
+                });   
+            });
+
+            window.scrollTo(0,1);
+
+            $(document).ready(function(){
+                
+                // COLOR in custom.js or set here 
+                //- var COLOR = "pink";
+
+                $("body").addClass(COLOR + " lighten-5");
+                $(".main-color-text").addClass(COLOR + "-text text-darken-3");
+                $(".main-color").addClass(COLOR + " darken-3");
+
+                $(".progress, .indeterminate").addClass(COLOR + " lignten-1");
+                $("nav#nav").addClass(COLOR + " darken-2 center-align");
+                $("li#avatar").addClass(COLOR + " darken-4 white-text center-align");
+                $("ul#dropdown-1").addClass(COLOR + " darken-3");
+                $("div#report").addClass(COLOR + " darken-4 white-text z-depth-1");
+                $(".prefix").addClass(COLOR + "-text darken-4");
+                $("ul.dropdown-content li a").addClass(COLOR + "-text");
+                
+
+                //-- others
+
+                $('.button-collapse').show();
+                $(".button-collapse").sideNav();
+
+                $('.materialboxed').materialbox();
+                
+                //-- set all button waves
+                $('.btn').addClass("waves-effect waves-light");
+                $('.btn-floating').addClass("waves-effect waves-light");
+
+                $(".parallax").parallax();
+
+                //-- animate.css
+                $('.btn, .btn-floating').addClass('animated shake');
+                $('ul.collapsible').addClass('animated bounceInRight');
+                
+                $('h1.headline.center').addClass('animated bounceInRight');
+                $('h4.headline.center').addClass('animated bounceInLeft');
+                animationHover(".benefitIcon1","tada");
+                animationHover(".benefitIcon2","tada");
+                animationHover(".benefitIcon3","tada");
+                animationHover(".btn","tada");
+
+                animationHover(".social1","tada");
+                animationHover(".social2","tada");
+                animationHover(".social3","tada");
+                animationHover(".social4","tada");
+                animationHover(".social5","tada");
+
+                $('.slider1').bxSlider({
+                    captions: true, 
+                    slideWidth: 210,
+                    minSlides: 2,
+                    maxSlides: 4,
+                    slideMargin: 10
+                });
+
+            }); 
+
+        //-- material popup message -- PHAI DE o END vi loi appendChild
+        //- https://github.com/jaredreich/notie
+        //- link(href="/bower_components/notie/dist/notie.css" rel="stylesheet")
+        //- script(src="/bower_components/notie/dist/notie.min.js")
+

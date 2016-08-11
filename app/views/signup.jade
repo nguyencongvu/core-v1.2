@@ -1,0 +1,55 @@
+extends layout
+
+block title
+    title Signup #{message}
+block content
+    #login-page()
+        div(style="margin:0 auto;").row.center-align
+            .col.s12.m6.l4.offset-l4.offset-m3
+                .card-panel.z-depth-4  
+                    div(style="margin:-20px").main-color 
+                        a(href="/")
+                            img(src='/img/logo_white.png', width="40%", class="responsive-img valign")
+                    
+                    div(style="height:40px;")
+                    form(action='/signup', method='post').left-align
+                        .input-field.col.s12
+                            i(class="fa fa-envelope-o prefix")
+                            input(type="email", name="email", value="#{email || ''}",required).validate
+                            label(for="email") Email
+                        .input-field.col.s12
+                            i(class="fa fa-user prefix")
+                            input(type="text", name="name", required).validate
+                            label(for="name") Your fullname
+                        .input-field.col.s12
+                            i(class="fa fa-user prefix")
+                            input(type="text", name="username", required).validate
+                            label(for="username") Prefer username
+                        .input-field.col.s12
+                            i(class="fa fa-lock prefix")
+                            input(type="password", name="password", required).validate 
+                            label(for="password") Password
+                        //- .input-field.col.s12
+                        //-     i(class="fa fa-lock prefix")
+                        //-     input(type="password", name="password_confirm", required).validate
+                        //-     label(for="password_confirm") Password confirm
+                        .input-field.col.s6
+                            input(type="submit", name="submit", value="Signup" class="btn orange col s12") 
+                        .input-field.col.s6        
+                            input(type="reset", name="reset", value="Reset" class="btn grey col s12")
+
+                            input(type="hidden", name="role", value="user")
+                            input(type="hidden", name="source", value="game")
+                    .row
+                        .col.s12
+                            div(style="margin-bottom:20px;")
+                            a(href="/login").top10 Login
+                            span  | Go <a href="/">Home</a>.</p>
+                                    
+    script.
+        $(document).ready(function(){
+            var msg = '#{message}' || "";
+            if (msg!="")
+                Materialize.toast(msg,3000, 'rounded'); 
+
+        });  

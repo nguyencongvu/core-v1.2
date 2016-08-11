@@ -1,0 +1,185 @@
+//- http://zevross.com/blog/2014/10/28/tips-for-creating-leafleft-js-maps
+//- http://jsfiddle.net/FranceImage/9xjt8223/
+extends ../layout
+
+block title
+    title Map
+block content
+    div.navbar-fixed
+        nav#nav.darken-4.center-align 
+            div.nav-wrapper 
+                a(class='brand-logo center')    
+                span(style="font-size:200%").white-text Bản đồ 
+                span(style="font-size:80%") #{pager.count} 
+                
+                ul.left 
+                    li
+                        a(href="#" data-activates="sidebar" class="button-collapse")
+                            i(class="fa fa-bars")
+    
+    div#map(style="height:640px;")
+
+    script.
+       
+        var ACTION = {
+          
+            onReady: function(){
+
+                //----------- PAGE LOAD ----------------  
+
+                //--- SET MAP ---
+                var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>'; //license 
+              
+                var mapboxTiles = L.tileLayer(
+                  'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+                {
+                    attribution: '&copy; ' + mapLink + ' Contributors',
+                      maxZoom: 18,
+                });
+              
+                //---get current location ??, set view map 
+                var map = L.map('map')
+                    .addLayer(mapboxTiles)
+                    .setView([10.77, 106.66], 15);
+
+           
+                var colorArr = ['red', 'darkred', 'orange', 'green', 'darkgreen', 'blue', 'purple', 'darkpuple', 'cadetblue']; //possible color of icon
+            
+                //- var urls ="{{@BASE}}/report/jsonmap?from=2015-04-01&to=2016-04-20";
+                //- lay querystring 
+                var start = getUrlVars()["from"];
+                var end = getUrlVars()["to"];
+                var urls = '/reports/jsonmap?from='+start+'&to='+end;
+
+                console.log(urls);
+              
+                //- promise instead of callback
+                //- var promise = $.getJSON("report/business.json");
+                var promise = $.getJSON(urls);
+                promise.then(function getLayer(data) {
+                //- do a bunch of stuff here
+                    console.log(data) // take a look at the data in the console
+
+                    var layerControl = L.control.layers().addTo(map); //checkbox dis
+
+                    //-all 
+                    var allMarkers = L.geoJson(data); 
+                    map.fitBounds(allMarkers.getBounds(), {
+                        padding: [50, 50]
+                    });
+
+                    var doneArr = [];
+                  
+                    //-filter by salesman
+                    $.each(data.features, function(name, feature){
+                        var i = getRandomInt(0,8);
+                        var cafeIcon = L.AwesomeMarkers.icon({
+                            prefix: 'fa', //-font awesome rather than bootstrap
+                            markerColor: colorArr[i], //- see colors above
+                            icon: 'male' //-http://fortawesome.github.io/Font-Awesome/icons/
+                    });
+
+                    var myMan = feature.properties.salesman;
+                    var ngay = feature.properties.ngay;
+                    var khachhang = feature.properties.khachhang;
+
+                    //- var desc = myMan + ' ('+ngay + ')';
+                    //-    desc += '<hr>'; 
+                    //-    desc += '<p>'+khachhang+'</p>'; 
+
+                    if ($.inArray(myMan, doneArr)==-1){
+                      //- chu y local var feature
+                        var myLayer = L.geoJson(data, {
+                            filter: function(feature, layer) {
+                                return feature.properties.salesman == myMan;
+                            },
+                            pointToLayer: function(feature, latlng) {
+                                return L.marker(latlng, {
+                                    icon: cafeIcon
+                                });
+                            }, 
+                            onEachFeature: function (feature, layer) {
+                                var desc; 
+                                desc = feature.properties.salesman + ' ('+ feature.properties.ngay + ')';
+                                desc += '<hr>'; 
+                                desc += '<p>'+ feature.properties.ten +' ('+feature.properties.phone+')</p>'; 
+                                desc += '<p>'+ feature.properties.tencongty +'<br>'; 
+                                desc += ''+ feature.properties.khachhang +'</p>'; 
+                                desc += '<p>'+ feature.properties.note +'</p>'; 
+                                layer.bindPopup(desc);
+                            }
+                        });
+
+                        myLayer.addTo(map);
+                        layerControl.addOverlay(myLayer, myMan);
+
+                    }//-if 
+
+                    if ($.inArray(myMan, doneArr)==-1){
+                        doneArr.push(myMan);
+                    }
+
+                    console.log(doneArr); 
+
+                    });
+
+                });  //-promise 
+
+                //---------bind action 
+                $(document).on("click",".btnStop", ACTION.stop) //stop interval
+                $(document).on("click",".btnStart", ACTION.start) //stop interval
+
+            }, 
+
+            start: function(e){
+                e.preventDefault(); 
+
+                setInterval(promise, 3*1000);
+              
+                var msg = 'Start realtime every 30s!';
+                Materialize.toast(msg, 3000, 'rounded');
+            },
+            stop: function(e){
+                e.preventDefault(); 
+              
+                clearInterval(promise);
+                var msg = 'Stop realtime every 30s!';
+                Materialize.toast(msg, 3000, 'rounded');
+            },
+
+        }
+
+        $( document ).ready( ACTION.onReady ); 
+
+        //---------- CUSTOM FUNC --------------
+        function latlngToArray(latlngString){ // "10.111,10.622"
+            var arr = [];
+            arr = latlngString.split(",");
+
+            if (arr[0]=='' | arr[1]=='')
+                arr = [10.111 , 10.622];
+          
+            var res = []; 
+            res = [parseFloat(arr[0]), parseFloat(arr[1])]  
+
+            return res; 
+        }
+
+        //- Returns a random integer between min (included) and max (excluded)
+        //- Using Math.round() will give you a non-uniform distribution!
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        //- get an array with all querystring values
+        //- example: var valor = getUrlVars()["valor"];
+        function getUrlVars(){
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }

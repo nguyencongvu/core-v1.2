@@ -1,0 +1,107 @@
+extends ../layout
+
+block title
+    title Update
+block content
+    - var controller = '/requests' //-- EDIT  #{controller}
+    div.navbar-fixed
+        nav.green.darken-4.center-align 
+            div.nav-wrapper 
+                a(class='brand-logo center')    
+                span(style="font-size:200%").white-text #{title}  
+                
+                ul.left 
+                    li
+                        a(href="#" data-activates="sidebar" class="button-collapse")
+                            i(class="fa fa-bars")
+    .row     
+        .container
+            .card-panel.white
+                form(action='#{controller}/#{model._id}?_method=PUT', 
+                method='post', enctype="application/json")
+                    //-- value=model.type
+                    .input-field
+                        input(type="text", name="client[name]", value=model.client.name, class="client", required).validate  
+                    div
+                        label Yêu cầu 
+                        textarea(id="report", name="report[comment]",class="summernote",required)  
+                    .input-field
+                        label Người yêu cầu/Email
+                        input(type="text", name="contact[name]", value=model.contact.name, required).validate  
+                    div
+                        label Ghi chú 
+                        textarea(id="feedback", name="feedback[comment]",class="summernote")
+
+                    
+                    .input-field
+                        input(type="submit", name="submit", value="Update", class="btn orange") 
+                        span.right10  
+                        a(href='#{controller}/#{model._id}' class="btn grey") View 
+                    //-- Logged
+                    .div
+                        - var updatedAt = new Date()
+                        - var updatedBy = user._id
+                        input(type="hidden", name="updatedAt", value="#{updatedAt}")
+                        input(type="hidden", name="updatedBy", value="#{updatedBy}")
+                            
+    script.
+        //-- autocomplete
+        var options = {
+            url: function(phrase) {
+                return "/admin/lists/jsontype?type=CUSTOMER&search="+phrase;
+            },
+            list: {
+                    match: {
+                        enabled: true
+                    }, 
+                    sort: {
+                        enabled: true
+                    }
+            },
+            getValue: "text",
+            requestDelay: 500
+        };
+
+        var ACTION = { 
+            onReady:function(){
+                //showProgress(true);
+                init();
+                
+                //-- bind ACTION 
+                $(document).on('click', '#btnCareAdd', ACTION.careAdd);
+
+            }, 
+            careAdd: function(e){
+                e.preventDefault(); 
+                //-- do sthing 
+            }
+        }
+
+        $( document ).ready( ACTION.onReady );
+
+        //--------- CUSTOM ------------------
+        function init(){
+            var msg = '#{message}' || "";
+            if (msg!="")
+                Materialize.toast(msg,3000, 'rounded'); 
+
+            //-- plugins
+            //$('ul.tabs').tabs(); 
+            //- $('#feedback').val('#{model.feedback.comment}');
+            //- $('#feedback').trigger('autoresize');
+
+            //- $('#report').val('#{model.report.comment}');
+            //- $('#report').trigger('autoresize');
+
+            $(".client").easyAutocomplete(options);
+
+            var str = '!{model.report.comment}'; // khong dung "" do html tag
+            $('#report.summernote').summernote('code',str);
+            
+            var str2 =  '!{model.feedback.comment}';
+            $('#feedback.summernote').summernote('code',str2);
+
+            $(".note-toolbar").hide();
+            $(".note-btn-group").hide();
+        }
+    

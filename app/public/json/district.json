@@ -1,0 +1,122 @@
+[
+  {
+    "type": "HCM",
+    "value": "Quan 1",
+    "text": "Quận 1"
+  },
+  {
+    "type": "HCM",
+    "value": "Quan 2",
+    "text": "Quận 2"
+  },
+  {
+    "type": "HCM",
+    "value": "Quan 3",
+    "text": "Quận 3"
+  },
+  {
+    "type": "HCM",
+    "value": "Quan 4",
+    "text": "Quận 4"
+  },
+  {
+    "type": "HCM",
+    "value": "Quan 5",
+    "text": "Quận 5"
+  },
+  {
+    "type": "HCM",
+    "value": "Quan 6",
+    "text": "Quận 6"
+  },
+  {
+    "type": "HCM",
+    "value": "Quan 7",
+    "text": "Quận 7"
+  },
+  {
+    "type": "HCM",
+    "value": "Quan 8",
+    "text": "Quận 8"
+  },
+  {
+    "type": "HCM",
+    "value": "Quan 9",
+    "text": "Quận 9"
+  },
+  {
+    "type": "HCM",
+    "value": "Quan 10",
+    "text": "Quận 10"
+  },
+  {
+    "type": "HCM",
+    "value": "Quan 11",
+    "text": "Quận 11"
+  },
+  {
+    "type": "HCM",
+    "value": "Quan 12",
+    "text": "Quận 12"
+  },
+  {
+    "type": "HCM",
+    "value": "Binh Chanh",
+    "text": "Bình Chánh"
+  },
+  {
+    "type": "HCM",
+    "value": "Binh Thanh",
+    "text": "Bình Thạnh"
+  },
+  {
+    "type": "HCM",
+    "value": "Binh Tan",
+    "text": "Bình Tân"
+  },
+  {
+    "type": "HCM",
+    "value": "Can Gio",
+    "text": "Cần Giờ"
+  },
+  {
+    "type": "HCM",
+    "value": "Cu Chi",
+    "text": "Củ Chi"
+  },
+  {
+    "type": "HCM",
+    "value": "Go Vap",
+    "text": "Gò Vấp"
+  },
+  {
+    "type": "HCM",
+    "value": "Hoc Mon",
+    "text": "Hóc Môn"
+  },
+  {
+    "type": "HCM",
+    "value": "Nha Be",
+    "text": "Nhà Bè"
+  },
+  {
+    "type": "HCM",
+    "value": "Phu Nhuan",
+    "text": "Phú Nhuận"
+  },
+  {
+    "type": "HCM",
+    "value": "Tan Binh",
+    "text": "Tân Bình"
+  },
+  {
+    "type": "HCM",
+    "value": "Tan Phu",
+    "text": "Tân Phú"
+  },
+  {
+    "type": "HCM",
+    "value": "Thu Duc",
+    "text": "Thủ Đức"
+  }
+]

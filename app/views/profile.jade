@@ -1,0 +1,209 @@
+extends layout
+
+block title
+    title User Profile
+block content
+    section(id="one")
+        #profile-page-header.card.small.z-depth-1
+            .card-image 
+                img(src="/img/user-profile-bg.jpg").activator
+            .card-profile-image    
+                img(src="/img/pic.png").circle.responsive-img.activator.z-depth-2
+            .card-content 
+                .row 
+                    .col.s3.offset-s2
+                        h1.animated.bounce Profile #{user.username}
+                    .col.s6
+                        h4 Thoughts, ideas, learns,  actions.                           
+                    .col.s1.right-align 
+                        a().btn-floating.activator.right
+                            i(class="fa fa-info")
+            .card-reveal
+                span.card-title About Me 
+                    i(class="fa fa-close").right
+                p I am a guy
+                a(href="/logout") Logout                
+    section 
+        .row 
+            //- left 3
+            .col.s12.m3
+                .card-panel.light-blue.white-text
+                    h1 This is me 
+                    .divider
+                    p Hello and welcome to my profile
+                    //- a(href="https://play.google.com/store/apps/details?id=vn.com.teamshow.app.TeamShow", target="_blank").orange.btn Play Teamshow
+                    a(href="/game", target="_blank").orange.btn Play Teamshow
+                    
+                .card-panel
+                    h4 Your Level
+                    ul.collection 
+                        - var n = 1
+                        while n<=4
+                            li.collection-item
+                                i(class="fa fa-level-up")    
+                                span(style="margin-left:10px;") Level #{n++}
+                                span.teal-text.badge Passed    
+                        while (n<=20 && n>4)
+                            li.collection-item
+                                i(class="fa fa-level-down")    
+                                span(style="margin-left:10px;") Level #{n++}
+                                span.red-text.badge Next        
+
+            //- right 9
+            .col.s12.m9
+                .col.s12.m8
+                    .card-panel 
+                        h1 Your skills
+                        .divider 
+                        //- chartjs here
+                        canvas(id="chart2")
+                        script.
+                            var ctx2 = document.getElementById("chart2");
+                            var data2 = {
+                                labels: ["Nhận thức", "Kết quả", "Kiến tạo", "Kết nối", "Kiểm soát", "Kế hoạch", "Hành động"],
+                                datasets: [
+                                    {
+                                        label: "Trước đây",
+                                        backgroundColor: "rgba(179,181,198,0.2)",
+                                        borderColor: "rgba(179,181,198,1)",
+                                        pointBackgroundColor: "rgba(179,181,198,1)",
+                                        pointBorderColor: "#fff",
+                                        pointHoverBackgroundColor: "#fff",
+                                        pointHoverBorderColor: "rgba(179,181,198,1)",
+                                        data: [65, 59, 90, 81, 56, 55, 40]
+                                    },
+                                    {
+                                        label: "Hiện nay",
+                                        backgroundColor: "rgba(255,99,132,0.2)",
+                                        borderColor: "rgba(255,99,132,1)",
+                                        pointBackgroundColor: "rgba(255,99,132,1)",
+                                        pointBorderColor: "#fff",
+                                        pointHoverBackgroundColor: "#fff",
+                                        pointHoverBorderColor: "rgba(255,99,132,1)",
+                                        data: [28, 48, 40, 19, 96, 27, 100]
+                                    }
+                                ]
+                            };
+                            var myRadarChart = new Chart(ctx2, {
+                                type: 'radar',
+                                data: data2,
+                                options: {
+                                        scale: {
+                                            reverse: true,
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                }
+                            }); 
+
+                            
+
+                        
+
+                    .card-panel
+                        h1 Activities stream 
+                        .row 
+                            .col.s12
+                                ul.tabs 
+                                    li.tab.col.s3
+                                        a(href='#tab1') You
+                                    li.tab.col.s3
+                                        a(href='#tab2') Your fans
+                                .divider        
+                                #tab1.col.s12
+                                    - var n = 1
+                                    while n<6
+                                        p 
+                                            i(class="fa fa-calendar").right10
+                                            span Your latest Activity #{n++}  
+                                #tab2.col.s12
+                                    - var n = 1
+                                    while n<16
+                                        p 
+                                            i(class="fa fa-calendar").right10
+                                            span Your fanclubs latest Activity #{n++}  
+        
+                .col.s12.m4
+                    .card-panel
+                        h4 Events for you
+                        ul.collection 
+                            - var events = ['MBA (Jun,16)', 'Team Lead (Jun,19)', 'Teamshow (Jul,10)']
+                            each row, index in events 
+                                li.collection-item
+                                    i(class="fa fa-calendar")    
+                                    span(style="margin-left:10px;") #{row}
+                                    span.teal-text.badge Join   
+                    .card-panel.grey.lighten-4
+                        h1 Talk with fans 
+                        .divider
+                        p Hey, talk for the next activities        
+                        form 
+                            .input-field
+                                textarea()
+                                a().btn.orange Send   
+                                span(style="font-size:200%;")
+                                    a(href="").blue-text 
+                                        i(class="fa fa-facebook-square")
+                                    a(href="").red-text 
+                                        i(class="fa fa-google-plus-square") 
+                    
+                    .card-panel
+                        h4 Your fans 
+                        ul.collection 
+                            - var fans = ['Nam, Le', 'Minh, Tran', 'Hoa, Nguyen']
+                            each row, index in fans 
+                                li.collection-item
+                                    i(class="fa fa-user")    
+                                    span(style="margin-left:10px;") #{row}
+                                    span.teal-text.badge Talk  
+                    .card-panel
+                        h4 Your club actions
+                        .divider
+                        canvas(id="myChart" height="200")
+                        script.
+                            var ctx = document.getElementById("myChart");
+                            var myChart = new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                                    datasets: [{
+                                        label: '# of Votes',
+                                        data: [12, 19, 3, 5, 2, 3],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255,99,132,1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero:true
+                                            }
+                                        }]
+                                    }
+                                }
+                            });
+    section 
+       
+
+script.
+    $(document).ready(function(){
+       
+        $('ul.tabs').tabs();
+    }); 

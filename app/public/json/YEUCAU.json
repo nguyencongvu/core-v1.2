@@ -1,0 +1,17 @@
+[
+  {
+    "type": "YEUCAU",
+    "value": "MUA",
+    "text": "Mua hàng"
+  },
+  {
+    "type": "YEUCAU",
+    "value": "FIX",
+    "text": "Khắc phục"
+  },
+  {
+    "type": "YEUCAU",
+    "value": "KHAC",
+    "text": "Khác"
+  }
+]

@@ -1,0 +1,365 @@
+extends ../layout
+
+block title
+    title Create
+block content
+    - var controller = '/issues' //-- EDIT 
+    div.navbar-fixed
+        nav#nav.darken-4.center-align 
+            div.nav-wrapper 
+                a(class='brand-logo center')    
+                span(style="font-size:200%").white-text #{title}  
+                
+                ul.left 
+                    li
+                        a(href="#" data-activates="sidebar" class="button-collapse")
+                            i(class="fa fa-bars")
+    
+    .row     
+        .container
+            .card-panel.white 
+                form(action='#{controller}', method='post',autocomplete="off")
+                    .input-field
+                        input(type="text", name="client[name]", placeholder="-- Chọn khách hàng  --", class="client", required).validate  
+                    .input-field
+                        label Mô tả sự cố 
+                        input(type="text", name="issue[description]", required).validate
+                    .input-field
+                        label Nguyên nhân sự cố
+                        input(type="text", name="issue[reason]", required).validate
+                    div
+                        label Cách khắc phục  
+                        textarea(id="fix", name="issue[fix]",class="summernote",required)  
+                    .input-field
+                        label Thời gian khắc phục (phút)
+                        input(type="text", name="issue[time]", required).validate  
+                    .input-field
+                        input(type="text", name="issue[type]", placeholder="-- Chọn loại sự cố  --", class="issueType", required).validate  
+                    .input-field
+                        label Thiết bị có sự cố (máy A, router B...)
+                        input(type="text", name="issue[item]", required).validate
+                    .input-field
+                        div#status
+                        div#mapholder
+                    
+                    .row.col.s12
+                        div#uploadedImages
+                        
+                    .row 
+                        .input-field.col.s6.m2
+                            h3
+                                a(id="btnGeo", href="#!", class="orange-text col s12")         
+                                    i(class="fa fa-globe") 
+                                    span.left10 Locate
+                        .input-field.col.s6.m2
+                            h3
+                                a(id="btnCamera", href="#!", class="orange-text col s12") 
+                                    i(class="fa fa-camera") 
+                                    span.left10 Camera        
+                             
+                         //- input file hidden 
+                        input(type="file" name="imageUpload" id="imageUpload" style="display:none" accept="image/*;capture=camera")
+
+                    .row
+                        .input-field.col.s6.m2 
+                            input(type="submit", name="submit", value='Save' class="btn orange col s12")
+                        .input-field.col.s6.m2        
+                            a(href='#{controller}' class="btn grey col s12") List        
+
+                    //-- Logged
+                    div(id='hide')
+                        - var createdAt = new Date()
+                        - var createdBy = user._id
+                        input(type="hidden", name="createdAt", value="#{createdAt}")
+                        input(type="hidden", name="createdBy", value="#{createdBy}")
+                        input(type="hidden", name="type", value="ISSUE")
+                        input(id="lat", type="hidden", name="location[lat]")
+                        input(id="lng", type="hidden", name="location[lng]")
+                        
+
+    script.
+        var latlng = 0; // for save to database; 
+        var photoArray = [];
+        
+        //-- autocomplete
+        var options = getOptions('CUSTOMER');
+        var option2 = getOptions('ISSUE');
+        
+        var ACTION = {
+            
+            onReady:function(){
+                
+                init();
+
+                //-- Bind control 
+                $(document).on('click','#btnGeo',ACTION.geo);
+                $(document).on('click','#btnCamera',ACTION.camera);
+                //$(document).on('click','#btnSave',ACTION.save);
+                $(document).on('change','#imageUpload',ACTION.upload);
+
+                //-- some stuff 
+                //- var curDateTime = getCurrentDateTime();
+                //- $('input[name="ngay"]').val(curDateTime);
+                $('select').material_select();
+
+            },
+            geo: function(){
+                getLocation();
+            }, 
+            camera: function(e){
+                e.preventDefault();
+                $('#imageUpload').click();
+            }, 
+          
+            upload: function (){
+                handleFiles();
+            },
+
+        };
+
+        $(document).ready(ACTION.onReady);
+
+        function init(){
+            //- $('#feedback').val('');
+            //- $('#feedback').trigger('autoresize');
+            //- $('#report').val('');
+            //- $('#report').trigger('autoresize');
+
+            $(".client").easyAutocomplete(options);
+            $(".issueType").easyAutocomplete(option2);
+
+            $(".summernote").summernote();
+            $(".note-toolbar").hide();
+            $(".note-btn-group").hide();
+
+        }
+
+
+        //------------------- CUSTOM ---------------------------------------
+        function getOptions(type){
+            //-- autocomplete
+            var options = {
+                url: function(phrase) {
+                    return "/admin/lists/jsontype?type="+type+"&search="+phrase;
+                },
+                list: {
+                        match: {
+                            enabled: true
+                        }, 
+                        sort: {
+                            enabled: true
+                        }
+                },
+                getValue: "text",
+                requestDelay: 300 
+            };
+
+            return options;
+        }
+
+        //--- Geo Locate
+        function getLocation() {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(success, error);
+            } else {
+              error('not supported');
+            }
+        }
+
+        //-- khong dung 
+        function showPosition(position) {
+            var latlon = position.coords.latitude + "," + position.coords.longitude;
+
+            //google static map 
+            var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=16&size=400x300&markers=color:blue%7Clabel:S|"+latlon+"&sensor=false";
+
+            //put map image to mapholder
+            document.getElementById("mapholder").innerHTML = 
+              "<img class='responsive-img' src='"+img_url+"'> "; 
+
+            //document.getElementById("latlng").value = latlon;   
+            //hidden fields
+            document.getElementById("lat").value = position.coords.latitude;
+            document.getElementById("lng").value = position.coords.longitude;
+              
+        }
+
+        function showError(error) { //location 
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    break;
+                case error.TIMEOUT:
+                    break;
+                case error.UNKNOWN_ERROR:
+                    break;
+            }
+        }
+
+        function success(position) {
+          var s = document.querySelector('#status');
+          
+          if (s.className == 'success') {
+            // not sure why we're hitting this twice in FF, I think it's to do with a cached result coming back    
+            return;
+          }
+          
+          s.innerHTML = "<h4>You are here</h4>";
+          s.className = 'success';
+          
+          var mapcanvas = document.createElement('div');
+          mapcanvas.id = 'mapcanvas';
+          mapcanvas.style.height = '200px';
+          mapcanvas.style.width = '300px';
+            
+          document.querySelector('#mapholder').appendChild(mapcanvas);
+          
+          var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          var myOptions = {
+            zoom: 15,
+            center: latlng,
+            mapTypeControl: false,
+            navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
+          
+          var marker = new google.maps.Marker({
+              position: latlng, 
+              map: map, 
+              title:"You are here! (at least within a "+position.coords.accuracy+" meter radius)"
+          });
+
+            var latlon = position.coords.latitude + "," + position.coords.longitude;
+            
+            //document.getElementById("latlng").value = latlon;   
+            //hidden fields
+            document.getElementById("lat").value = position.coords.latitude;   
+            document.getElementById("lng").value = position.coords.longitude;   
+
+        }
+
+        function error(msg) {
+          var s = document.querySelector('#status');
+          s.innerHTML = typeof msg == 'string' ? msg : "failed";
+          s.className = 'fail';
+          
+          // console.log(arguments);
+        }
+
+        /*---------------------------------------------------------------------*/
+        //--- called by resizeAndUpload
+
+        //- http://stackoverflow.com/questions/10333971/html5-pre-resize-images-before-uploading
+        function handleFiles()
+        {
+            //- get the file 
+            var filesToUpload = document.getElementById('imageUpload').files;
+            var file = filesToUpload[0];
+            //console.log(file);
+            resizeAndUpload(file);
+        }
+
+        function resizeAndUpload(file){
+
+            // resize when processing 
+            var fr = new FileReader();
+            fr.onload = function(e) {
+                var tempImg = new Image();
+                tempImg.src = fr.result; //-- lay file tu filereader()
+                
+                tempImg.onload = function() {
+             
+                    var MAX_WIDTH = 600;
+                    var MAX_HEIGHT = 480;
+                    var tempW = tempImg.width;
+                    var tempH = tempImg.height;
+                    if (tempW > tempH) {
+                        if (tempW > MAX_WIDTH) {
+                           tempH *= MAX_WIDTH / tempW;
+                           tempW = MAX_WIDTH;
+                        }
+                    } else {
+                        if (tempH > MAX_HEIGHT) {
+                           tempW *= MAX_HEIGHT / tempH;
+                           tempH = MAX_HEIGHT;
+                        }
+                    }
+             
+                    var canvas = document.createElement('canvas');
+                    canvas.width = tempW;
+                    canvas.height = tempH;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(this, 0, 0, tempW, tempH);
+                    
+                    //-- get dataURL
+                    var dataURL = canvas.toDataURL("image/jpeg");
+
+                    //-- convert lai thanh file de upload 
+                    var fileCompressed = dataURItoBlob(dataURL);
+
+                    var formData = new FormData();
+                    formData.append('myFile', fileCompressed, 'anyName');
+
+                    //console.log(formData);
+
+                    $.ajax({
+                        url: '/upload',
+                        type: 'post',
+                        data: formData,
+                        processData : false, 
+                        contentType: false, 
+                        success: function(data){
+                            
+                            // dau vao array va lay length 
+                            photoArray.push(data);  
+                            var len = photoArray.length;  
+                            
+                            console.log(photoArray);  
+                            
+                            //-- them append hidden dua tren len
+                            var elem = "<input type='hidden' name='photos["+len+"][src]' value='"+data+"' />"; 
+                            
+                            $("div#hide").append($(elem));
+
+                            var ele = "<a href='/uploads/"+data+"'>Photo #"+len+"</a>";
+                            ele = "<img src=/uploads/"+data+" class='responsive-img materialboxed'>";
+
+                            $("div#uploadedImages").append($(ele));
+                        },
+                        crossDomain: true
+                    }); 
+
+                  }
+            };
+            fr.readAsDataURL(file);
+
+        }
+
+        //- convert dataUrl to File (blob) 
+        function dataURItoBlob (dataURI) {
+            // convert base64 to raw binary data held in a string
+            // doesn't handle URLEncoded DataURIs
+            var byteString;
+            if (dataURI.split(',')[0].indexOf('base64') >= 0)
+                byteString = atob(dataURI.split(',')[1]);
+            else
+                byteString = unescape(dataURI.split(',')[1]);
+            // separate out the mime component
+            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+            // write the bytes of the string to an ArrayBuffer
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+
+            // write the ArrayBuffer to a blob, and you're done
+            return new Blob([ab],{type: mimeString});
+        }
+
+
+
+        

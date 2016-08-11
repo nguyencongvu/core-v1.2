@@ -1,0 +1,36 @@
+extends ../layout
+
+block title
+    title Create
+block content
+    .row
+        .col.s12.blue.darken-4.white-text.z-depth-1
+            .container
+                h1 
+                    i(class="fa fa-user") 
+                    span(style="margin-left:10px;") #{title} 
+    .row     
+        .container
+            .card-panel.white 
+                form(action='/admin/lists', 
+                method='post')
+                    .input-field
+                        label Type
+                        input(type="text", name="type")
+                    .input-field
+                        label Value
+                        input(type="text", name="value")    
+                    .input-field 
+                        label Text
+                        input(type="text", name="text")            
+                    .input-field
+                        input(type="submit", name="submit", value='Save' class="btn") 
+                        span(style="margin-right:10px;")  
+                        a(href='/admin/lists' class="btn") List        
+                    //-- Logged
+                    .div
+                        - var createdAt = new Date()
+                        - var createdBy = user._id
+                        input(type="hidden", name="createdAt", value="#{createdAt}")
+                        input(type="hidden", name="createdBy", value="#{createdBy}")
+                            

@@ -1,0 +1,17 @@
+﻿- var utf = "\ufeff"
+#{utf}
+h3 Report (from: #{from} to: #{to})
+    - var cols = ['No', 'Type', 'Value', 'Text', 'At'];
+    table
+        thead
+            each row, index in cols
+                th=row
+        tbody
+            each row, index in model
+                tr 
+                    td=index+1
+                    td #{row.type} 
+                    td #{row.value}
+                    td #{row.text}
+                    td #{row.createdAt ? row.createdAt.toISOString().slice(0,10) : ''}
+                    

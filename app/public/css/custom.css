@@ -1,0 +1,99 @@
+body {
+    color: #555;
+}
+
+.top10 {margin-top:10px;}
+.bottom10 {margin-bottom:10px;}
+.left10 {margin-left:10px;}
+.right10 {margin-right:10px;}
+
+/* left sidebar */
+.side-nav a {
+    display: block;
+    font-size: 1rem;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 30px;
+}
+
+/* profile */
+#profile-page-header .card-profile-image {
+    width: 110px;
+    position: absolute;
+    top: 120px;
+    z-index: 1;
+    left: 40px;
+    cursor: pointer;
+    margin: 0;
+}
+
+section {padding-left:10px;padding-right:10px;}
+#page h1 {font-size: 150%;}
+#page h2 {font-size: 140%;}
+#page h3 {font-size: 130%;}
+#page h3 {font-size: 130%;}
+#page h4 {font-size: 120%;}
+#page h5 {font-size: 110%;}
+#page h6 {font-size: 105%;}
+
+
+/* pagination */
+.pagination li i {
+    font-size: 1.2rem;
+    vertical-align: middle;
+    color: #666;
+}
+
+/*---*/
+
+.easy-autocomplete input {
+    /* border-color: #ccc; */
+    /* border-radius: 4px; */
+    /* border-style: solid; */
+    /* border-width: 0px; */
+    /* box-shadow: 0 1px 2px rgba(0,0,0,0.1) inset; */
+    /*color: #555;*/
+    float: none;
+    /* padding: 0px 12px; */
+}
+
+
+.progress {margin-top: 0px; margin-bottom:0px;}
+
+div.richtext{}
+.collapsible-body p {margin:0; padding:0;}
+
+/** reset nav */
+nav {
+    color: #fff;
+    background-color: #eee;
+    width: 100%;
+    height: 56px;
+    line-height: 56px;
+}
+
+.note-editor.note-frame {
+    border: 0px solid #a9a9a9;
+    border-bottom: 1px solid #a9a9a9;
+}
+
+/* label focus color */
+ .input-field input:focus + label {
+   color: grey !important;
+ }
+ /* label underline focus color */
+ .input-field input:focus {
+   border-bottom: 1px solid grey !important;
+   box-shadow: 0 1px 0 0 grey !important
+ }
+
+
+
+/*------------#SEO ----------------*/
+#seo h1 {font-size: 300%;}
+#seo h2 {font-size: 150%;}
+#seo h2.ads {font-size: 150%;}
+#seo h3 {font-size: 120%;}
+#seo h3.icons {font-size: 280%;}
+#seo h4 {font-size: 110%;}
+#seo h5 {font-size: 105%;}

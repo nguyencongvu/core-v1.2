@@ -1,0 +1,62 @@
+[
+  {
+    "type": "PRODUCT",
+    "value": "RC-BL-20W",
+    "text": "RC-BL-20W (Bóng đèn duổi muỗi)"
+  },
+  {
+    "type": "PRODUCT",
+    "value": "E3-V4Kg",
+    "text": "E3-V4Kg (4 lỗ quá tải)"
+  },
+  {
+    "type": "PRODUCT",
+    "value": "E5-V6KU2",
+    "text": "E5-V6KU2 (6 lỗ USB)"
+  },
+  {
+    "type": "PRODUCT",
+    "value": "EA-V5M",
+    "text": "EA-V5M (5 lỗ schuko)"
+  },
+  {
+    "type": "PRODUCT",
+    "value": "PMS-GEA-05SM",
+    "text": "PMS-GEA-05 SM (chính phụ schuko)"
+  },
+  {
+    "type": "PRODUCT",
+    "value": "PA-GE1-01SW",
+    "text": "PA-GE1-01SW (wifi trung tâm)"
+  },
+  {
+    "type": "PRODUCT",
+    "value": "PA-GE7-01SRF1",
+    "text": "PA-GE7-01SRF1 (Ổ điều khiển)"
+  },
+  {
+    "type": "PRODUCT",
+    "value": "SD-UN2-RF",
+    "text": "SD-UN2-RF (remote)"
+  },
+  {
+    "type": "PRODUCT",
+    "value": "AC-P-16A",
+    "text": "AC-P-16A (Dây nguồn AC-Tech 16A)"
+  },
+  {
+    "type": "PRODUCT",
+    "value": "AC-P-10A",
+    "text": "AC-P-10A (Dây nguồn AC-Tech 10A)"
+  },
+  {
+    "type": "PRODUCT",
+    "value": "AC-LED-220W",
+    "text": "AC-LED-220W (Dây nguồn LED 220W)"
+  },
+  {
+    "type": "PRODUCT",
+    "value": "KHAC",
+    "text": "Sản phẩm khác"
+  }
+]

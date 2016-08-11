@@ -1,0 +1,116 @@
+extends ../layout
+
+block title
+    //- Edit title 
+    title User List 
+block content
+    .row
+        .col.s12.blue.darken-4.white-text.z-depth-1
+            h1 
+                i(class="fa fa-user") 
+                span(style="margin-left:10px;") #{title} 
+                span(class="badge").white #{pager.count} items
+    .row    
+        .col.s12
+            .card-panel
+                .row.grey-text.darken-2 
+                    .row 
+                        form(id="formSearch")
+                            .col.m6.s12
+                                .input-field
+                                    i(class="fa fa-search prefix") 
+                                    - var sValue= search===undefined ? '' : search ; 
+                                    input(id="search",name="search",value="#{sValue}",type="text")
+                            .col.m6.s12.right-align
+                                include ../paginator.jade                            
+                        
+                .row 
+                    each row, index in model
+                        - var b = index%4
+                        - var c = index%2
+                        - if (b==0) 
+                            .row 
+                        - endif      
+                        .col.s12.m3.l3 
+                            .card.grey.lighten-4
+                                
+                                div(style="min-height:180px;").card-content
+                                    h5 
+                                        i(class="fa fa-user") 
+                                        span.left10 #{row.username}  
+                                    .divider
+                                    p Email: #{row.email}
+                                    p Addr: #{row.address}
+                                    p Phone: #{row.phone}
+
+                                    - function setDate(d) { 
+                                    -   return d.toLocaleDateString('vn-VN');
+                                    - }
+
+                                    p Birthday: #{row.birthday ? setDate(row.birthday) : ''}
+
+                                    p(style="margin-bottom:20px")
+                                    //- - function setTime(d){
+                                    //- - return d.getHours()+":"+ d.getMinutes()+ ":" + d.getSeconds();  
+                                    //- - }
+
+                                    //- p Time: #{row.updatedAt ? setTime(row.updatedAt) : ''}
+                                    
+                                    .chip 
+                                        img(src="../img/login-logo.png")
+                                        span #{row.role}
+                                .card-action
+                                    form(id='frmDelete', action='/admin/users/#{row._id}?_method=DELETE',  method='post')
+                                        
+                                        .right-align                                        
+                                            a(data-activates='#{index}').dropdown-button Action
+
+                                            ul(id='#{index}').dropdown-content
+                                                li 
+                                                    a(href='/admin/users/#{row._id}') View
+                                                li 
+                                                    a(href='/admin/users/#{row._id}/update') Update
+                                                li 
+                                                    a(href='#' class='btnDelete') Delete
+                                                    
+
+    //-Edit btn-floating  
+    .fixed-action-btn.horizontall.click-to-toggle
+        a(href="#").btn-floating.btn-large.red
+            i(class="fa fa-bars")       
+        ul
+            li
+                a(href="/admin/users/list",data-position="left",data-delay="50",
+                    data-tooltip="View as table").btn-floating.yellow.tooltipped 
+                    i(class="fa fa-table")   
+            li
+                a(href="/admin/users/create",data-position="left",data-delay="50",
+                    data-tooltip="Create new").btn-floating.green.tooltipped 
+                    i(class="fa fa-plus")      
+
+    script.
+        $(document).ready(function(){
+
+            $('a.btnDelete').click(function(e){
+                e.preventDefault();
+                var str = 'Are you sure?';
+                if (confirm(str)){
+                    $('form#frmDelete').submit();
+                }
+            });
+
+            $('.tooltipped').tooltip({delay: 0});
+
+            $('.dropdown-button').dropdown({
+              inDuration: 300,
+              outDuration: 225,
+              constrain_width: false, // Does not change width of dropdown to that of the activator
+              hover: true, // Activate on hover
+              gutter: 0, // Spacing from edge
+              belowOrigin: false, // Displays dropdown below the button
+              alignment: 'left' // Displays dropdown with edge aligned to the left of button
+            });
+
+        });
+
+

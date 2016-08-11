@@ -1,0 +1,154 @@
+extends ../layout
+
+block title
+    title Order
+block content
+    - var controller = '/reports' //-- EDIT  #{controller}
+    div.navbar-fixed
+        nav.green.darken-4.center-align 
+            div.nav-wrapper 
+                a(class='brand-logo center')    
+                span(style="font-size:200%").white-text #{title}  
+                
+                ul.left 
+                    li
+                        a(href="#" data-activates="sidebar" class="button-collapse")
+                            i(class="fa fa-bars")
+    .row     
+        .container
+            .card-panel.white
+                form(action='#{controller}/#{model._id}?_method=PUT', 
+                method='post', enctype="application/json")
+                    //-- value=model.type khong dung ""
+                    .input-field
+                        input(type="text", name="shipping", placeholder="Ghi chú giao hàng")
+                    div#order
+                        .row    
+                            .col.s7.m7
+                                p Sản phẩm
+                            .col.s2.m2
+                                p SL
+                            .col.s3.m3
+                                p Giá
+                        .row    
+                            .col.s7.m7
+                                input(type="text", class='item', placeholder="-- Chọn sản phẩm --", name="order[0][item]", required)
+                            .col.s2.m2
+                                input(type="number",  name="order[0][quantity]", required)   
+                            .col.s3.m3
+                                input(type="number", name="order[0][price]", required)   
+                            
+                    .row 
+                        .input-field.col.s6.m3
+                            h4
+                                a(id="newline", href="#", class="orange-text col s12")         
+                                    i(class="fa fa-plus") 
+                                    span.left10 Thêm dòng
+                        .input-field.col.s6.m3
+                            h4
+                                a(id="removeline", href="#", class="orange-text col s12") 
+                                    i(class="fa fa-minus") 
+                                    span.left10 Xóa dòng   
+
+                    .input-field
+                        input(type="submit", name="submit", value="Update", class="btn orange") 
+                        span.right10  
+                        a(href='#{controller}/#{model._id}' class="btn grey") View 
+
+                    //-- Logged
+                    .div
+                        - var updatedAt = new Date()
+                        - var updatedBy = user._id
+                        input(type="hidden", name="updatedAt", value="#{updatedAt}")
+                        input(type="hidden", name="updatedBy", value="#{updatedBy}")
+
+                        input(type="hidden", name="type", value="ORDER")
+                            
+
+    script.
+        var i = 1;
+        //-- autocomplete
+        var options = {
+            url: function(phrase) {
+                return "/admin/lists/jsontype?type=PRODUCT&search="+phrase;
+            },
+            list: {
+                    match: {
+                        enabled: true
+                    }, 
+                    sort: {
+                        enabled: true
+                    }
+            },
+            getValue: "text",
+            requestDelay: 500
+        };
+
+        
+        var ACTION = { 
+            onReady:function(){
+                //showProgress(true);
+                init();
+                
+                //-- bind ACTION 
+                $(document).on('click', 'a#newline', ACTION.newline);
+                $(document).on('click', 'a#removeline', ACTION.removeline);
+
+            }, 
+            newline: function(e){
+                e.preventDefault(); 
+                //-- do sthing 
+                //alert('new line');
+
+                var row = "<div class='row item'>";  //-- to remve 
+                
+                row += "<div class='col s7 m7'>"; 
+                row +=  "<input type='text' class='next item' placeholder='-- Chọn sản phẩm --' name='order["+i+"][item]'>"; 
+                row +="</div>"; 
+
+                row += "<div class='col s2 m2'>"; 
+                row +=  "<input type='number' name='order["+i+"][quantity]'>"; 
+                row +="</div>"; 
+
+                row += "<div class='col s3 m3'>"; 
+                row +=  "<input type='number' name='order["+i+"][price]'>"; 
+                row +="</div>"; 
+                
+                row +="</div>"; //-- row 
+                $('div#order').append($(row));
+
+                i++;
+
+                $(".next.item").easyAutocomplete(options); //-- phai next
+            },
+            removeline: function(e){
+                e.preventDefault(); 
+                //-- do sthing 
+                $('.row.item').last().remove();
+            }
+        }
+
+        $( document ).ready( ACTION.onReady );
+
+        //--------- CUSTOM ------------------
+        function init(){
+            var msg = '#{message}' || "";
+            if (msg!="")
+                Materialize.toast(msg,3000, 'rounded'); 
+
+            //-- plugins
+            //$('ul.tabs').tabs(); 
+             // texarea 
+            $('#feedback').val('#{model.feedback.comment}');
+            $('#feedback').trigger('autoresize');
+
+            $('#report').val('#{model.report.comment}');
+            $('#report').trigger('autoresize');
+
+            
+
+            $(".item").easyAutocomplete(options);
+
+        }
+
+   

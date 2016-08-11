@@ -1,0 +1,94 @@
+extends ../pixel_layout
+
+block title
+    title Pixel App
+block content
+    h1 Pixel ads
+    p.test Test 
+    
+    a(href="http://localhost:8000/pixels") Reset 
+    a(href="#",id="placeImg") Place  
+
+    div(style="margin: 0 auto; text-align:center;")
+        table(cellpadding=0, cellspacing=0, style="max-width:1024px")
+           - for (var c = 1; c <= 76; c++) {
+                tr(style="max-height:10px; line-height:10px;") 
+                   - for (var r = 1; r <= 102; r++) { 
+                        td(id="#{c+'_'+r}",style='border: solid 0px #333; max-width:10px')
+                            img(src="/img/10x10.png", width="10px", height="10px", title="#{c+'.'+r}")
+                    -}
+            - }
+
+    script.
+        $(document).ready(function(){
+            
+            var _td;
+            //-- place img 
+            $('#placeImg').click(function(e){
+                e.preventDefault();    
+                
+                var imgs = [3,3,2,2];
+                placeImage(imgs);
+
+                imgs = [12,12,10,5];
+                placeImage(imgs);
+
+                imgs = [12,69,1,1];
+                placeImage(imgs);
+
+            });
+            
+        }); 
+
+
+        function getRand(max){
+            return Math.floor(Math.random() * max) + 1;
+        }
+
+        function placeImage(img){
+            var X = img[0];
+            var Y = img[1];
+            var lenX = img[2];
+            var lenY = img[3];
+
+            var _td = "#"+X+"_"+Y; 
+
+            //-- check if _td exist, not done~
+            if( $(_td).css('display') == 'none' ){
+                console.log('hidden');
+                return;
+            } else {
+                console.log('visible');
+            }
+    
+            
+
+            $(_td)
+                .attr('rowspan',lenX)
+                .attr('colspan',lenY); 
+
+            var desc = "Your banner [" + X + '+' +lenX + ','+
+                    Y + '+'+lenY + "]";
+
+            $(_td + " img")
+                .attr('src','/img/pic.png')
+                .attr('title',desc)
+                .attr('width',lenX*10 + "px")
+                .attr('height',lenY*10 + "px");
+
+            $(_td).attr('id','done'); //-- finish and change id
+
+            for(var i=X; i<X+lenX; i++){
+                for(var j=Y; j<Y+lenY; j++){
+                    //--remove these tds 
+                    var _tds = '#'+i+"_"+j; 
+                    $(_tds).hide();
+                }    
+            }
+
+        }
+
+
+
+                    
+                         

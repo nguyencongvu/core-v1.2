@@ -1,0 +1,48 @@
+extends layout 
+
+block title
+    title #{title} 
+block content
+    #login-page()
+        div(style="margin:0 auto;").row.center-align
+            .col.s12.m6.l4.offset-l4.offset-m3
+                .card-panel.z-depth-4  
+                    div(style="margin:-20px").main-color 
+                        a(href="/")
+                            img(src='/img/logo_white.png', width="40%", class="responsive-img valign")
+                    
+                    div(style="margin-bottom:40px;")
+                        
+                    form(action='/login', method='post').left-align
+                        .input-field.col.s12
+                            i(class="fa fa-envelope-o prefix")
+                            input(type="text", name="email", required).validate
+                            label(for="email") Email or username
+                        .input-field.col.s12
+                            i(class="fa fa-lock prefix")
+                            input(type="password", name="password", required).validate    
+                            label(for="password") Password
+                        .input-field.col.s6
+                            input(type="submit", name="submit", value="Login" class="btn orange col s12 animated bounce") 
+                        .input-field.col.s6        
+                            input(type="reset", name="reset", value="Reset" class="btn grey col s12")         
+                        .row 
+                            .col.s8.m8
+                                div(style="margin-bottom:20px;")
+                                a(href='/signup') Signup |   
+                                a(href='/passwordreset') Forgot password?
+                            .col.s4.m4.right-align
+                                span(style="font-size: 260%")
+                                    a(href="/auth/facebook").blue-text 
+                                        i(class="fa fa-facebook-square")
+                                    a(href="/auth/google").red-text 
+                                        i(class="fa fa-google-plus-square")    
+                          
+
+    script.
+        $(document).ready(function(){
+            var msg = '#{message}' || "";
+            if (msg!="")
+                Materialize.toast(msg,3000, 'rounded'); 
+
+        });        

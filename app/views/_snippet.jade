@@ -1,0 +1,61 @@
+extends ../layout
+
+block title
+    title View
+block content
+    - var controller = '/reports' //-- EDIT  #{controller}
+    div.navbar-fixed
+        nav#nav.blue.darken-2.center-align 
+            div.nav-wrapper 
+                a(class='brand-logo center')    
+                span(style="font-size:200%").white-text #{title}  
+                span(style="font-size:80%") #{pager.count} 
+                
+                ul.left 
+                    li
+                        a(href="#" data-activates="sidebar" class="button-collapse")
+                            i(class="fa fa-bars")
+    .row
+        .card-panel 
+    .row    
+
+    
+    script.
+        
+        var ACTION = { 
+            onReady:function(){
+                
+                init();
+                
+                //-- bind ACTION 
+                $(document).on('click', '#btnCareAdd', ACTION.careAdd);
+
+            }, 
+            careAdd: function(e){
+                e.preventDefault(); 
+                //-- do sthing 
+            }
+        }
+
+        $( document ).ready( ACTION.onReady );
+
+        //--------- CUSTOM ------------------
+        function init(){
+            //- var msg = '#{message}' || "";
+            //- if (msg!="")
+            //-     Materialize.toast(msg,3000, 'rounded'); 
+
+            //-- plugins
+            //$('ul.tabs').tabs(); 
+            $('.materialboxed').materialbox();
+            $('.dropdown-button').dropdown({
+              inDuration: 300,
+              outDuration: 225,
+              constrain_width: false, // Does not change width of dropdown to that of the activator
+              hover: true, // Activate on hover
+              gutter: 0, // Spacing from edge
+              belowOrigin: false, // Displays dropdown below the button
+              alignment: 'left' // Displays dropdown with edge aligned to the left of button
+            });
+
+        }

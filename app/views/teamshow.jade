@@ -1,0 +1,508 @@
+extends layout_game 
+
+block title
+    title Teamshow | Tro choi chien luoc | Strategic game
+    
+block content
+    <!-- side bar -->
+    ul#sidebar.side-nav
+        li
+            .userView.orange
+                a(href)
+                    img(src='/img/logo_white.png').circle
+                a(href="/profile")
+                    span.white-text.name #{user.name}
+                a(href="/profile")
+                    span.white-text.email #{user.email} 
+        
+        li   
+            <!-- Switch -->
+            .switch 
+                | SOUND
+                label.right 
+                    | Off
+                    input(type="checkbox", name="chkSound", id="chkSound")
+                    span.lever 
+                    | On
+        li
+            .switch 
+                | CHALLENGE MODE
+                label.right
+                    | Off
+                    input(type="checkbox", name="chkChallenge", id="chkChallenge")
+                    span.lever 
+                    | On 
+
+
+    <!-- modal -->
+    div#modal1.modal
+        .modal-content.grey.lighten-3
+            h5.orange-text 
+                i.fa.fa-gamepad.right10
+                span.indigo-text #{user.name} 
+                | , it's time to view a short guide!
+            .divider
+            p  Your chess: A1, A2, A3, A4  
+                span.indigo-text in purple
+            p  Active chess (movable) has a bound circle 
+                span.orange-text in orange 
+            p  Manual move chess to active circle cell 
+                span.orange-text in dashed orange 
+                | to take number position (1-9)
+            p.indigo-text  Player who take highest number in total is the winner
+            p  Tips: Double click any PC chess (B,C,D) to place it randomly,  
+                span.indigo-text but not yours (A)
+            
+            .divider
+        .modal-footer.grey.lighten-3
+            .col.s12.m6
+                if (user.username== 'guest')
+                    a(href="/login").btn.left.grey Login
+            .col.s12.m6
+                a().modal-action.modal-close.btn.btnStart.orange Start New Game
+    
+    <!-- modal Endgame-->
+    div#modal2.modal
+        .modal-content.grey.lighten-3
+            h5.orange-text 
+                i.fa.fa-gamepad.right10
+                | Game Finished!    
+                
+            .divider
+            
+            h5.indigo-text #{user.name} 
+                | , You played very well!
+            p Want a chess? ... 
+            p Want a tour to Teamshow based? ..
+            p Want a job?  ...
+            
+            .divider
+        .modal-footer.grey.lighten-3
+            .col.s12.m6
+                if (user.username== 'guest')
+                    a(href="/login").btn.left.orange Login to save result
+                if (user.username!= 'guest')
+                    a(href="/login").btn.left.blue Save result
+            .col.s12.m6
+                a().modal-action.modal-close.btn.grey Close
+
+    <!-- modal bottom -->
+    div#modal-bottom.modal.bottom-sheet
+        .modal-content
+            h5.orange-text 
+                i.fa.fa-gamepad.right10
+                | Comments on the game
+            p Please change game language on Setting
+            .divider
+            .comment
+                p.time
+                p.comment-text
+
+            .divider
+
+    .row
+        .col.s12.m8
+            canvas#canvas(width='660', height='630')
+        .col.s12.m4
+            .row
+                .col.s12.m12.card-panel
+                    div(style="margin-bottom:0px;").row
+                        h5.orange-text  
+                            | Hi, #{user.username} 
+                            //- a(href).btnGuide.left.left10.orange-text
+                            //-     i.fa.fa-play
+                            
+                            a(href,data-activates="sidebar").button-collapse.right.left10
+                                i.fa.fa-cog
+                            
+                            a(href).btnGuide.right.left10
+                                i.fa.fa-question-circle
+                            if (user.username!='guest')
+                                a(href="/logout").right.left10
+                                    i.fa.fa-sign-out
+                            if (user.username=='guest')
+                                a(href="/login").right.left10
+                                    i.fa.fa-sign-in
+                            //- a(href).btnComment.right.left10
+                            //-     i.fa.fa-comment
+                    .divider
+                    ul.tabs
+                        li.tab.col.s3
+                            a(href="#game") Game
+                        li.tab.col.s3
+                            a(href="#score") Score
+                        li.tab.col.s3
+                            a(href="#chess") Chess
+                        
+                    .divider
+                    #game
+                        div(style="min-height:125px;max-height:125px;overflow-y:scroll;")
+                            //- game play
+                            //--accordion good hon
+                            table.gameplay.striped.bordered.centered 
+                                thead
+                                    th Turn
+                                    th Status
+                                    th Score
+                                    th Time
+                                tbody 
+                                    tr
+                                        td
+                                        td  
+                                        td  
+                                        td 
+                        
+                    #score
+                        table.score.striped.bordered.centered
+                            thead
+                                tr
+                                    th Player
+                                    th Score
+                                    th Final
+                            tbody
+                                tr
+                                    td YOU=A
+                                    td.A 0
+                                    td.A.final 0
+                                tr
+                                    td B
+                                    td.B 0
+                                    td.B.final 0
+                                tr
+                                    td C
+                                    td.C 0
+                                    td.C.final 0
+                                tr
+                                    td D
+                                    td.D 0
+                                    td.D.final 0
+
+                    #chess
+                        table.score.striped.bordered.centered
+                            thead
+                                tr
+                                    th Chess
+                                    th 1
+                                    th 2
+                                    th 3
+                                    th 4
+                                    th Total
+
+                            tbody
+                                tr
+                                    td A
+                                    td.A1 0
+                                    td.A2 0
+                                    td.A3 0
+                                    td.A4 0
+                                    td.A 0
+                                tr
+                                    td B
+                                    td.B1 0
+                                    td.B2 0
+                                    td.B3 0
+                                    td.B4 0
+                                    td.B 0
+                                tr
+                                    td C
+                                    td.C1 0
+                                    td.C2 0
+                                    td.C3 0
+                                    td.C4 0
+                                    td.C 0
+                                tr
+                                    td D
+                                    td.D1 0
+                                    td.D2 0
+                                    td.D3 0
+                                    td.D4 0
+                                    td.D 0
+                               
+                    
+                    .divider
+                    .row
+                        .col.s12
+                            p.comment.orange-text Ứng dụng đa dạng của Teamshow 
+            
+            if (user.username=='guest')
+                .row
+                    .col.s12.card-panel.grey.lighten-4
+                        .row
+                            h5.orange-text Win bonus? Please signup
+                            .divider     
+                            .input-field.col.s12.m7
+                                input(type="email", id="email", name="email", placeholder="your_mail@domain.com").email.validated
+                            .input-field.col.s12.m5
+                                a(href).btnSignup.btn.orange Signup    
+            endif  
+            div(style="margin-top:-30px").row
+                .col.s12.m12.card-panel
+                    ul#sponsorTab.tabs
+                        li.tab.col.s3
+                            a(href="#discover").teal-text Discover
+                        li.tab.col.s3
+                            a(href="#sponsor") Sponsors
+                        li.tab.col.s3
+                            a(href="#bonus") Bonus
+                    .divider
+                    #discover
+                        p Teamshow is a strategic practice game for 
+                            ul
+                                li Family 
+                                li Teen
+                                li Business
+                                li Teambuilding
+                                    
+                    #sponsor
+                        #my-slider.slider-pro
+                            .sp-slides
+                                .sp-slide 
+                                    img(src='http://lorempixel.com/400/200/city/1')
+                                    p.sp-caption 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                .sp-slide 
+                                    img(src='http://lorempixel.com/400/200/city/2')
+                                    p.sp-caption 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                .sp-slide 
+                                    img(src='http://lorempixel.com/400/200/city/3')
+                                    p.sp-caption  3 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                .sp-slide 
+                                    img(src='http://lorempixel.com/400/200/city/4')
+                                    p.sp-caption 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                
+                    #bonus
+                        div(style="height:200px;").valign-warpper
+                            h5.valign Bonus program everyday
+                          
+    script.
+
+        //- https://github.com/mazong1123/fabric.ext
+        var canvas = new fabric.CanvasEx('canvas', { selection: false });
+            canvas.hoverCursor = 'pointer';
+            // canvas.backgroundImage = 'http://...';
+            // canvas.onFpsUpdate = function(){ /* ... */ };
+
+            var ctx = canvas.getContext("2d"); //- to resize 
+            var ANSWER = false;
+            var ACTION = { 
+                onReady:function(){
+                    $('.button-collapse').show();
+                    $(".button-collapse").sideNav();
+                    
+                    $('ul.tabs').tabs('select_tab', 'game');
+                    $('ul#sponsorTab.tabs').tabs('select_tab', 'sponsor');
+                    
+                    $('.collapsible').collapsible({
+                      accordion : false 
+                    });
+
+                    $( '#my-slider' ).sliderPro({
+                        width: '100%',
+                        height: 200,
+                        orientation: 'horizontal',
+                        autoplay: false,
+                    });
+
+                    $("#my-slider").sliderPro('gotoSlide',2);
+
+                    
+                    $('#modal1').openModal({
+                        dismissible: false,
+                    });
+
+                    //-- set all button waves
+                    $('.btn').addClass("waves-effect waves-light");
+                    $('.btn-floating').addClass("waves-effect waves-light");
+
+                    //-- animate.css
+                    //- $('.btn').addClass('animated shake');
+                    //- $('ul.collapsible').addClass('animated bounceInRight');
+
+                    init();
+
+                    //-- bind ACTION 
+                    $(document).on('click', '.btnGuide', ACTION.btnGuide);
+                    $(document).on('click', '.btnSignup', ACTION.btnSignup);
+                    $(document).on('change', '#chkSound', ACTION.chkSound);
+                    $(document).on('change', '#chkChallenge', ACTION.chkChallenge);
+                    $(document).on('click', '.btnStart', ACTION.btnStart);
+
+                    //- $(document).on('click', '.btnComment', ACTION.btnComment);
+                    //- $(document).on('click', '#btnChoose', ACTION.btnChoose);
+                    //- $(document).on('click', '#btnStop', ACTION.btnStop);
+
+                }, 
+                btnSignup: function(e){
+                    e.preventDefault();
+                    var email = $("#email").val();
+                    var url = "/signup?email="+ email+ "&source=game&go=game";
+                    location.href=url;
+                    
+                },
+                btnComment: function(e){
+                    e.preventDefault();
+                    $('#modal-bottom').openModal();
+                },
+                btnGuide: function(e){
+                    e.preventDefault();
+                    $('#modal1').openModal();
+                },
+                btnStart: function(e){
+                    e.preventDefault(); 
+                    //-- do sthing 
+                    startGame();
+                },
+                btnChoose: function(e){
+                    e.preventDefault(); 
+                    //-- do sthing 
+                },
+                btnStop: function(e){
+                    e.preventDefault(); 
+                    //-- do sthing 
+                    
+                    clearInterval(_objectTimer);
+                    clearInterval(_gameTimer);
+                },
+                chkSound: function(e){
+                    e.preventDefault(); 
+                    //-- do sthing 
+                    if ($('#chkSound').prop('checked')==true)
+                        CONFIG.sound = 1;    
+                    else 
+                        CONFIG.sound = 0;    
+                },
+                chkChallenge: function(e){
+                    e.preventDefault(); 
+                    //-- do sthing 
+                    if ($('#chkChallenge').prop('checked')==true)
+                        CONFIG.challenge = 1;
+                    else 
+                        CONFIG.challenge = 0;
+                }
+            }
+
+            $( document ).ready( ACTION.onReady );
+            //------------------------------
+            function log(elem, msg){
+                if (CONFIG.debug==1)
+                    console.log(msg);
+                else 
+                    if (elem!=""){
+                        $(elem).html(msg);
+                    }
+
+            }   
+
+
+            function init(){
+                var center = canvas.getCenter();
+                canvas.setBackgroundImage('/teamshow/teamshow-logo.png',
+                    canvas.renderAll.bind(canvas), {
+                        opacity: 0.75,
+                        scaleX:1.37,
+                        scaleY:1.37,
+                        top: center.top+4,
+                        left: center.left-17,
+                        originX: 'center',
+                        originY: 'center'
+                });
+                
+                // gridLine("#eee");
+                line("orange");
+                                
+                buldBlock1();
+                buldBlock2();
+                buldBlock3();
+                buldBlock4();
+
+                chessA_StartPosition();
+                chessB_StartPosition();
+                chessC_StartPosition();
+                chessD_StartPosition();
+
+
+            }
+
+            canvas.on("object:selected", function(e){
+                var obj = e.target; 
+                var name = obj.name;
+                // log(getValueByName(name) + " selected!") ;
+
+                // enableCells();
+                //- obj.set({
+                //-     strokeWidth: 1,
+                //- });
+
+            });
+
+
+            canvas.on("object:moving", function(e){
+                removeObject("circleX");
+
+                var obj = e.target; 
+                var name = obj.name;
+
+                canvas.bringToFront(obj);
+                
+            });
+
+            canvas.on("object:modified", function(e){
+                var chess = e.target;
+                snapToGrid(chess);
+                updateCells(chess, chess.left/grid, chess.top/grid);
+                enableCells();   
+
+            });
+
+            canvas.on('mouse:dblclick', function (e) {
+                var obj = e.target;
+                if (obj.name.indexOf("A")>=0){
+                    notie.alert(1,'You must move your chess',1);
+                    return; 
+                }
+
+                if (obj!=undefined){
+                    log("", obj.name);
+                    //-- randomMove(object);
+                    if (endMove()==false) //-- chua endMove
+                        randomMove(obj.name);
+                    else{
+                        updateCells(obj, obj.left/grid, obj.top/grid);
+
+                    } 
+
+                }
+            });
+
+           
+            //-- SOUND 
+            // var PATH = "sound/default/";
+            // var backgroundSound = new sound();
+            var questionSound = new sound(CONFIG.soundPath+'question.mp3');
+            var unlockSound = new sound(CONFIG.soundPath+'ticktockSlow.wav');
+            var placeFitSound = new sound(CONFIG.soundPath+'click.wav');
+            // var placeWrongSound = new sound(PATH+'beep.mp3');
+
+            if (CONFIG.sound_level == 1) //-- hurry 
+                unlockSound = new sound(CONFIG.soundPath+'ticktock.wav');
+
+            // var rightAnswerSound = new sound();
+            // var wrongAnswerSound = new sound();
+            //-------------------------------------
+
+            function sound(src) {
+
+                this.sound = document.createElement("audio");
+                this.sound.src = src;
+                this.sound.setAttribute("preload", "auto");
+                this.sound.setAttribute("controls", "none");
+                this.sound.style.display = "none";
+                document.body.appendChild(this.sound);
+                this.play = function(){
+                    if (CONFIG.sound==1)
+                        this.sound.play();
+                }
+                this.stop = function(){
+                    if (CONFIG.sound==1)
+                        this.sound.pause();
+                }
+            }

@@ -1,0 +1,239 @@
+extends ../layout
+
+block title
+    //- Edit title 
+    title Report 
+block content
+    - var controller = '/issues' //-- EDIT  #{controller}
+    div.navbar-fixed
+        div#report.row.darken-4.white-text.z-depth-1
+            form()
+                .col.s12.m2
+                    h1(style="font-size:200%") 
+                        a(href="#" data-activates="sidebar" class=" button-collapse").white-text
+                            i(class="fa fa-bars")
+                            span.left10 Report
+
+                div(style="padding-top:15px;").col.s12.m2
+                    select(id="time", name="time")
+                        option(value="") Chọn ngày
+                        option(value="0") Hôm nay
+                        option(value="-1") Hôm qua
+                        option(value="-2") Tuần này
+                        option(value="30") Tháng này
+                        option(value="-7") Tuần trước
+                        option(value="-30") Tháng trước 
+
+                        - for(var i=1;i<=12;++i) { 
+                            option(value="#{i}") Tháng #{i}
+                        - }
+                
+                div(style="padding-top:15px;").col.s12.m2
+                    input(id="from", name="from", text="#{from}").datepicker
+                
+                div(style="padding-top:15px;").col.s12.m2
+                    input(id="to", name="to", text="#{to}").datepicker
+                
+                div(style="padding-top:30px;").col.s12.m4    
+                    button(type="submit").orange.btn Preview
+                    span(style="margin-right:4px")
+                    a(id="excel",href="#{controller}/excel").btn.green Excel
+                    span(style="margin-right:4px")
+                    a(id="btnMap", href="#{controller}/map").blue.btn Map
+    .row    
+        .col.s12
+            .card-panel
+                .row 
+
+                    h3 Báo cáo (từ 
+                        span #{moment(from).format('DD/MM/YYYY')}
+                        span  đến 
+                        span #{moment(to).format('DD/MM/YYYY')}
+                        span )
+                 .row 
+                    //- Edit fields
+                    - var cols = ['No', 'Khách hàng', 'Báo cáo', 'Feedback','Người lập','Time','Action'];
+                    table.table.bordered.striped.responsive-table
+                        thead
+                            each row, index in cols
+                                th=row
+                        tbody
+                            each row, index in model
+                                tr 
+                                    td=index+1
+                                    td #{row.client.name}
+                                    td !{row.report.comment}
+                                    td !{row.feedback.comment}
+                                    td !{row.createdBy.username}
+                                    td #{moment(row.createdAt).format('DD/MM/YYYY HH:mm:ss')}
+                                    
+                                    td
+                                        form(id='frmDelete', action='#{controller}/#{row._id}?_method=DELETE',  method='post')
+
+                                            //- su dung index de #id khac biet 
+                                            a(data-activates='#{index}').dropdown-button Action
+
+                                            ul(id='#{index}').dropdown-content
+                                                li 
+                                                    a(href='#{controller}/#{row._id}') View
+                                                li 
+                                                    a(href='#{controller}/#{row._id}/update') Update
+                                                li 
+                                                    a(href='#' class='btnDelete') Delete
+
+    script.
+        var controller = "/reports";
+
+        var ACTION = { 
+            onReady:function(){
+                //showProgress(true);
+                init();
+                
+                //-- bind ACTION 
+                $(document).on('change', 'select#time',ACTION.selectTime);
+                $(document).on('click', 'a.btnDelete',ACTION.btnDelete);
+                $(document).on('click', '#excel',ACTION.btnExcel);
+
+            }, 
+            selectTime: function(e){
+                e.preventDefault(); 
+                //-- do sthing 
+                select();
+            },
+            btnDelete: function(e){
+                e.preventDefault(); 
+                //-- do sthing 
+                var str = 'Are you sure?';
+                if (confirm(str)){
+                    $('form#frmDelete').submit();
+                }
+            },
+            btnExcel: function(e){
+                e.preventDefault(); 
+                //-- do sthing 
+                excel();
+            }
+
+        }
+
+        $( document ).ready( ACTION.onReady );
+
+        //--------- CUSTOM ------------------
+        function init(){
+            var msg = '#{message}' || "";
+            if (msg!="")
+                Materialize.toast(msg,3000, 'rounded'); 
+
+            //-- plugins
+            //$('ul.tabs').tabs(); 
+            $('select').material_select();
+            $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 3, // Creates a dropdown of 15 years to control year
+                format: 'yyyy-mm-dd',
+            });
+
+            $('.tooltipped').tooltip({delay: 0});
+
+            $('.dropdown-button').dropdown({
+              inDuration: 300,
+              outDuration: 225,
+              constrain_width: false, // Does not change width of dropdown to that of the activator
+              hover: true, // Activate on hover
+              gutter: 0, // Spacing from edge
+              belowOrigin: false, // Displays dropdown below the button
+              alignment: 'left' // Displays dropdown with edge aligned to the left of button
+            });
+
+            $("select#time").val("0").trigger('change');
+
+            $("#from").val("#{moment(from).format('YYYY-MM-DD')}");
+            $("#to").val("#{moment(to).format('YYYY-MM-DD')}");
+
+        }
+
+        //--- momentjs set date from, to
+        function select(){
+            var selected = $('#time').val();
+            var arr; 
+            var start, end;
+
+            if (selected>=1 && selected<=12){
+                switch (selected){
+                    case selected:  // tuyet chieu! thay vi case 1, 0 case 2, 1
+                    start =  moment([moment().year(), selected-1]); // -1
+                    end =  moment(start).endOf('month');
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;
+                }
+            }       
+            else {
+                switch (selected){
+                case '0': // hom nay 
+                    start =  moment(); // -1
+                    end =  moment();
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;  
+                case '-1':  //hom qua 
+                    start =  moment().subtract(1, 'days'); // -1
+                    end =  moment().subtract(1, 'days'); // -1
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;  
+                case '-2': //tuan nay 
+                    start =  moment().startOf('week'); 
+                    end =  moment(); 
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;  
+                case '-7': //tuan truoc 
+                    start =  moment().startOf('week').subtract(1,'weeks'); 
+                    end =  moment().endOf('week').subtract(1,'weeks'); 
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;  
+                case '30': //thangn nay  
+                    start =  moment().startOf('month'); 
+                    end =  moment(); 
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;      
+                case '-30': //thangn truoc 
+                    start =  moment().startOf('month').subtract(1,'months'); 
+                    end =  moment().endOf('month').subtract(1,'months'); 
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;          
+                default: 
+                    start =  moment(new Date()); // -1
+                    end =  moment(new Date());
+                    arr = [start, end];
+                    setFromTo(arr);
+                }   
+            } 
+        }
+
+        function setFromTo(arr){
+            $("#from").val(moment(arr[0]).format('YYYY-MM-DD'));
+            $("#to").val(moment(arr[1]).format('YYYY-MM-DD'));
+
+            var url = controller+"/map?from="+$("#from").val()+"&to="+$("#to").val();
+            $('#btnMap').attr('href',url);
+        }
+
+        function excel(){
+            var BaseUrl = controller; //local and hosting ok
+            // create an a href and call controller export 
+            var a = document.createElement('a');
+            
+            var start = $("#from").val();
+            var end = $("#to").val();
+            a.href = BaseUrl+"/excel?from="+start+"&to="+end;
+            console.log(a.href);
+            document.body.appendChild(a);
+            a.click();
+        }
+        
+

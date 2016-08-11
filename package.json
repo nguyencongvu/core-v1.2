@@ -1,0 +1,44 @@
+{
+  "name": "VienNguyen-CORE",
+  "version": "1.2.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./app/www"
+  },
+  "main": "./app/www",
+  "engines": {
+    "node": "0.10.x"
+  },
+  "dependencies": {
+    "async": "^2.0.1",
+    "bcrypt-nodejs": "latest",
+    "body-parser": "~1.0.0",
+    "bower": "^1.7.9",
+    "compression": "^1.6.2",
+    "config": "^1.21.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.0.1",
+    "crypto": "0.0.3",
+    "email-templates": "^2.4.0",
+    "express": "~4.2.0",
+    "express-session": "^1.13.0",
+    "font-awesome": "^4.6.1",
+    "geojson": "^0.3.0",
+    "jade": "^1.11.0",
+    "method-override": "^2.3.5",
+    "moment": "^2.13.0",
+    "mongoose": "^4.4.20",
+    "morgan": "~1.0.0",
+    "multer": "^1.1.0",
+    "nodemailer": "^2.5.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "paginate-for-mongoose": "^1.0.1",
+    "passport": "^0.3.2",
+    "passport-facebook": "^1.0.3",
+    "passport-google-oauth": "~0.1.5",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "~1.0.2",
+    "serve-favicon": "^2.2.0",
+    "socket.io": "^1.4.6"
+  }
+}

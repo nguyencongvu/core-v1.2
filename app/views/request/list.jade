@@ -1,0 +1,165 @@
+extends ../layout
+
+block title
+    //- Edit title 
+    title Reports 
+block content
+    - var controller = '/requests' //-- EDIT    
+    div.navbar-fixed
+        nav.green.darken-4.center-align 
+            div.nav-wrapper 
+                a(class='brand-logo center')    
+                span(style="font-size:200%").white-text #{title} 
+                span(style="font-size:80%") #{pager.count} 
+
+                ul.left 
+                    li
+                        a(href="#" data-activates="sidebar" class="button-collapse")
+                            i(class="fa fa-bars")
+                ul.right
+                    li 
+                        a(href="#!",data-activates="dropdown-1").dropdown-button
+                            i(class="fa fa-chevron-down")
+                    ul#dropdown-1.green.darken-1.dropdown-content
+                        li
+                            a(href="#{controller}/table").white-text
+                                i(class="fa fa-table")
+                                span.left10 Table
+                        li 
+                            a(href="#{controller}/list").white-text
+                                i(class="fa fa-list-ul")
+                                span.left10 List
+                        li 
+                            a(href="#{controller}/cards").white-text
+                                i(class="fa fa-list-alt")
+                                span.left10 Cards        
+    div.grey.lighten-4.z-depth-1  
+        .row
+            form(id="formSearch")
+                .col.m6.s12
+                    .input-field
+                        i(class="fa fa-search prefix") 
+                        - var sValue= search===undefined ? '' : search ; 
+                        input(id="search" name="search" value="#{sValue}" type="text")
+                .col.m6.s12.right-align
+                    include ../paginator.jade 
+    div(style="margin-top:-10px;").white
+        
+        ul
+            li
+                ul(data-collapsible="accordion").collapsible
+                    each row, index in model
+                        li(style="line-height:30px")
+                            .divider
+                            .divider
+                            div.collapsible-header.grey.lighten-3
+                                .row
+                                    .col.s8.m8
+                                        h4
+                                            b #{row.client.name} 
+                                            div Ngày: #{moment(row.createdAt).format('DD/MM/YYYY HH:mm:ss')}
+                                    .col.s4.m4.right-align.red-text
+                                        b #{row.createdBy.username}
+                                        
+                            div.collapsible-body
+                                div.bottom10
+                                .row.container
+                                    .col.s12.m3
+                                        div 
+                                            u Thông tin chung
+                                        div Ngày: #{moment(row.createdAt).format('DD/MM/YYYY HH:mm:ss')}
+                                        
+                                    .col.s12.m3    
+                                        div 
+                                            u Liên hệ
+                                        .chip
+                                            a(href="tel:#{row.contact.phone}") 
+                                                i(class="fa fa-phone") 
+                                                span.left10 #{row.contact.phone}
+                                            span.left10
+                                            b #{row.contact.name}
+                                    .col.s12.m3    
+                                        div 
+                                            u Phản hồi khách hàng
+                                        div !{row.feedback.comment}
+                                    .col.s12.m3    
+                                        div 
+                                            u Báo cáo
+                                        div !{row.report.comment}
+                                .row.container.top10
+                                        form(id='#{row._id}', action='#{controller}/#{row._id}?_method=DELETE',  method='post')
+
+                                                a(data-activates='#{index}').btn.orange.dropdown-button Action
+
+                                                ul(id='#{index}').dropdown-content
+                                                    li 
+                                                        a(href='#{controller}/#{row._id}/order').orange-text Order
+                                                    .divider
+                                                    li 
+                                                        a(href='#{controller}/#{row._id}') View
+                                                    .divider
+                                                    li 
+                                                        a(href='#{controller}/#{row._id}/update') Update
+                                                    .divider
+                                                    li 
+                                                        a(href='#', data='#{row._id}' class='btnDelete') Delete
+
+    //-Edit btn-floating  
+    .fixed-action-btn.horizontal
+        a(href="#{controller}/create",data-position="left",data-delay="50",data-tooltip="Create new").btn-floating.btn-large.orange.tooltipped 
+            i(class="fa fa-pencil")               
+    
+    script.
+        
+        var ACTION = { 
+            onReady:function(){
+                //showProgress(true);
+                init();
+                
+                //-- bind ACTION 
+                $(document).on('click', 'a.btnDelete', ACTION.btnDelete);
+                
+            }, 
+            btnDelete: function(e){
+                e.preventDefault(); 
+               //-- do sthing 
+                var cf = confirm('Are you sure to DELETE?');
+                if (cf==true){
+                    var formId = "form#"+$(this).attr('data');
+                    //alert(formId);
+                    $(formId).submit();
+                    //$('form#frmDelete').submit();
+
+                    return false; 
+                }
+            }
+        }
+
+        $( document ).ready( ACTION.onReady );
+
+        //--------- CUSTOM ------------------
+        function init(){
+            //- var msg = '#{message}' || "";
+            //- if (msg!="")
+            //-     Materialize.toast(msg,3000, 'rounded'); 
+
+            //-- plugins
+            //$('ul.tabs').tabs(); 
+            $('.tooltipped').tooltip({delay: 0});
+
+            $('.dropdown-button').dropdown({
+              inDuration: 300,
+              outDuration: 225,
+              constrain_width: false, // Does not change width of dropdown to that of the activator
+              hover: false, // Activate on hover
+              gutter: 0, // Spacing from edge
+              belowOrigin: false, // Displays dropdown below the button
+              alignment: 'left' // Displays dropdown with edge aligned to the left of button
+            });
+
+            $('.collapsible').collapsible({
+              accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+            });
+
+        }
+    

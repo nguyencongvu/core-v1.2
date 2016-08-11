@@ -1,0 +1,40 @@
+extends ../layout_web
+
+block title 
+    title Xong viec nhanh | Vien Nguyen Software
+block content 
+    
+    .slider
+        ul.slides
+            li
+                img(src="http://lorempixel.com/1024/400/abstract/1", data-caption="A picture of some deer and tons of trees").materialboxed
+                div().caption.center-align
+                    h1 Biết ngay tiến độ thị trường
+                    h5 Tình tình đội sale thị trường hôm nay thế nào?
+                    p  Sử dụng trên mọi thiết bị điện thoại   
+            li
+                img(src="http://lorempixel.com/1024/400/abstract/7", data-caption="A picture of some deer and tons of trees").materialboxed
+                div().caption.left-align
+                    h1 Báo cáo điểm nhập hàng  
+                    h5 Báo cáo tiếp cận, báo cáo đơn hàng 
+                    p  Nhận thông tin tức thời, chăm sóc khách hàng tức thời  
+            li
+                img(src="http://lorempixel.com/1024/400/abstract/2", data-caption="A picture of some deer and tons of trees").materialboxed
+                div().caption.right-align
+                    h1 Định vị và chụp ảnh
+                    h5 Định vị địa điểm, Bản đồ khu vực
+                    p  Theo dõi chính xác và tức thời  
+            li
+                img(src="http://lorempixel.com/1024/400/abstract/1", data-caption="A picture of some deer and tons of trees").materialboxed
+                div().caption.right-align
+                    h1 Báo cáo tổng hợp
+                    h5 Báo cáo theo sales, theo ngày, theo bản đồ
+                    p  Nhập chăm sóc khách hàng, so sánh với chỉ tiêu được giao            
+    section.divider
+    section(style="min-height:300px; padding:40px").white 
+        .container 
+            .row.center-align     
+                a(href="/login").right10.orange.btn.btn-large Đăng nhập
+                a(href="/signup").blue.btn.btn-large Đăng ký sử dụng ngay
+    
+    

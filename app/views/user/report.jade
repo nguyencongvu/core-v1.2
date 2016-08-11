@@ -1,0 +1,226 @@
+extends ../layout
+
+block title
+    //- Edit title 
+    title Report 
+block content
+    .row.blue.darken-4.white-text.z-depth-1
+        form()
+            .col.s12.m2
+                h1 
+                    i(class="fa fa-list") 
+                    span(style="margin-left:10px;") #{title} 
+            div(style="padding-top:15px;").col.s12.m2
+                select(id="time", name="time")
+                    option(value="") Date range
+                    option(value="0") Today
+                    option(value="-1") Yesterday
+                    option(value="-2") This week
+                    option(value="30") This month
+                    option(value="-7") Last week
+                    option(value="-30") Last Month
+
+                    - for(var i=1;i<=12;++i) { 
+                        option(value="#{i}") Month #{i}
+                    - }
+            
+            div(style="padding-top:15px;").col.s12.m2
+                input(id="from", name="from", text="#{from}").datepicker
+            
+            div(style="padding-top:15px;").col.s12.m2
+                input(id="to", name="to", text="#{to}").datepicker
+            
+            div(style="padding-top:30px;").col.s12.m4    
+                button(type="submit").btn Preview
+                span(style="margin-right:4px")
+                a(id="excel",href="/admin/lists/excel").btn.green Excel
+                span(style="margin-right:4px")
+                a(href="/admin/lists/map").btn Map
+    .row    
+        .col.s12
+            .card-panel
+                //- .row.grey-text.darken-2 
+                //-     .row 
+                //-         form(id="formSearch")
+                //-             .col.m6.s12
+                //-                 .input-field
+                //-                     i(class="fa fa-search prefix") 
+                //-                     - var sValue= search===undefined ? '' : search ; 
+                //-                     input(id="search" name="search" value="#{sValue}" type="text")
+                //-             .col.m6.s12.right-align
+                //-                 include ../paginator.jade                            
+                .row 
+                    - function setDate(d) {
+                    -   return d.toLocaleDateString();
+                    - }
+                    
+                    h3 Báo cáo (từ 
+                        span #{setDate(new Date(from))} 
+                        span đến 
+                        span #{setDate(new Date(to))}
+                        span )
+                .row 
+                    //- Edit fields
+                    - var cols = ['No', 'Type', 'Value', 'Text','At', 'Action'];
+                    table.table.bordered.striped.responsive-table
+                        thead
+                            each row, index in cols
+                                th=row
+                        tbody
+                            each row, index in model
+                                tr 
+                                    td=index+1
+                                    td #{row.type} 
+                                    td #{row.value}
+                                    td #{row.text}
+                                    td #{row.createdAt ? setDate(row.createdAt) : ''}
+                                    
+                                    td
+                                        form(id='frmDelete', action='/admin/lists/#{row._id}?_method=DELETE',  method='post')
+
+                                            a(data-activates='#{index}').dropdown-button Action
+
+                                            ul(id='#{index}').dropdown-content
+                                                li 
+                                                    a(href='/admin/lists/#{row._id}') View
+                                                li 
+                                                    a(href='/admin/lists/#{row._id}/update') Update
+                                                li 
+                                                    a(href='#' class='btnDelete') Delete
+
+    //-Edit btn-floating  
+    //- .fixed-action-btn.horizontall.click-to-toggle
+    //-     a(href="#").btn-floating.btn-large.red
+    //-         i(class="fa fa-bars")       
+    //-     ul
+    //-         li
+    //-             a(href="/users",data-position="left",data-delay="50",
+    //-                 data-tooltip="View as cards").btn-floating.yellow.tooltipped 
+    //-                 i(class="fa fa-list")    
+    //-         li
+    //-             a(href="/users/create",data-position="left",data-delay="50",
+    //-                 data-tooltip="Create new").btn-floating.green.tooltipped 
+    //-                 i(class="fa fa-plus")            
+    
+    script.
+        $(document).ready(function(){
+            $('a.btnDelete').click(function(e){
+                e.preventDefault();
+                var str = 'Are you sure?';
+                if (confirm(str)){
+                    $('form#frmDelete').submit();
+                }
+            });
+
+            $('select').material_select();
+            $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 3, // Creates a dropdown of 15 years to control year
+                format: 'yyyy-mm-dd',
+            });
+
+
+            $('.tooltipped').tooltip({delay: 0});
+
+            $('.dropdown-button').dropdown({
+              inDuration: 300,
+              outDuration: 225,
+              constrain_width: false, // Does not change width of dropdown to that of the activator
+              hover: true, // Activate on hover
+              gutter: 0, // Spacing from edge
+              belowOrigin: false, // Displays dropdown below the button
+              alignment: 'left' // Displays dropdown with edge aligned to the left of button
+            });
+
+            $("select#time").val("-2").trigger('change');
+            
+            $(document).on('click','#excel', function(e){
+                e.preventDefault();
+                excel();
+            });
+        });
+
+    script.
+        //momentjs set date from, to
+        $(document).on('change', 'select#time',function(){
+
+            var selected = $('#time').val();
+            var arr; 
+            var start, end;
+
+            if (selected>=1 && selected<=12){
+                switch (selected){
+                    case selected:  // tuyet chieu! thay vi case 1, 0 case 2, 1
+                    start =  moment([moment().year(), selected-1]); // -1
+                    end =  moment(start).endOf('month');
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;
+                }
+            }       
+            else {
+                switch (selected){
+                case '0': // hom nay 
+                    start =  moment(); // -1
+                    end =  moment();
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;  
+                case '-1':  //hom qua 
+                    start =  moment().subtract(1, 'days'); // -1
+                    end =  moment().subtract(1, 'days'); // -1
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;  
+                case '-2': //tuan nay 
+                    start =  moment().startOf('week'); 
+                    end =  moment(); 
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;  
+                case '-7': //tuan truoc 
+                    start =  moment().startOf('week').subtract(1,'weeks'); 
+                    end =  moment().endOf('week').subtract(1,'weeks'); 
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;  
+                case '30': //thangn nay  
+                    start =  moment().startOf('month'); 
+                    end =  moment(); 
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;      
+                case '-30': //thangn truoc 
+                    start =  moment().startOf('month').subtract(1,'months'); 
+                    end =  moment().endOf('month').subtract(1,'months'); 
+                    arr = [start, end];
+                    setFromTo(arr);
+                    break;          
+                default: 
+                    start =  moment(new Date()); // -1
+                    end =  moment(new Date());
+                    arr = [start, end];
+                    setFromTo(arr);
+                }   
+            } 
+        });
+
+        function setFromTo(arr){
+            $("#from").val(moment(arr[0]).format('YYYY-MM-DD'));
+            $("#to").val(moment(arr[1]).format('YYYY-MM-DD'));
+        }
+
+        function excel(){
+            var BaseUrl = '/lists'; //local and hosting ok
+            // create an a href and call controller export 
+            var a = document.createElement('a');
+            
+            var start = $("#from").val();
+            var end = $("#to").val();
+            a.href = BaseUrl+"/excel?from="+start+"&to="+end;
+            console.log(a.href);
+            document.body.appendChild(a);
+            a.click();
+        }
+        
+
