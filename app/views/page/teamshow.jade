@@ -10,13 +10,14 @@ block content
         div.navbar-fixed
             nav(style="height:80px; padding-top:10px")#nav.z-depth-2
                 div.nav-wrapper
-                    a(style="font-size:180%; margin-left:20px").left Teamshow
+                    a(href)
+                        img(style="margin-top:-30px", src="/img/logo.png" width="20%").responsive-img.left
                     //- menu ul in small device
                     ul(style="font-size:150%").right
                         li
                             a(href="https://www.facebook.com/strategyTeamShow").fa.fa-facebook-square.social1
                         li
-                            a().fa.fa-google.social2
+                            a(href="https://plus.google.com/117051781590363024835").fa.fa-google.social2
                         li
                             a().fa.fa-twitter.social3
                         li
@@ -34,11 +35,11 @@ block content
                     h2.center.white-text Một game tư duy hấp dẫn đột phá xuất hiện tạo sân chơi cho doanh nghiệp, thanh niên, gia đình, và trẻ em...  
                     .row 
                         .col.s12.m5 
-                            .card-panel
-                                h2 Hãy rèn luyện mỗi ngày...  
+                            .card-panel.hoverable
+                                h2.black-text Hãy rèn luyện mỗi ngày...  
                                 p Teamshow vận dụng lý thuyết trò chơi, kỹ thuật phối hợp nhóm và kỹ năng leadership 
-                                p Thật ngạc nhiên là chỉ cần đi vài nước cờ, bạn có thể khám phá các kỹ năng tiềm ẩn của mình... 
-                                p Nhưng Teamshow còn nhiều khả năng ứng dụng "không thể tin nổi", mang giá trị cho phát triển văn hóa doanh nghiệp, kích hoạt thương hiệu, sinh viên cần việc làm, team building... 
+                                
+                                p Teamshow còn nhiều khả năng ứng dụng "không thể tin nổi", mang giá trị cho phát triển văn hóa doanh nghiệp, kích hoạt thương hiệu, sinh viên cần việc làm, team building... 
                                 //- .input-field
                                 //-     input(type="email", placeholder="email@domain.com").white.grey-text
                                 .input-field
@@ -74,49 +75,54 @@ block content
         section#benefit
             .container
                 .row.center 
-                    .col.s12.m4.card-panel
+                    .col.s12.m4.card-panel.hoverable
                         h3.icons.main-color-text 
                             i.fa.fa-child.benefitIcon1
-                        h4 Family Teamshow
+                        h4.black-text Family Teamshow
                         p.left-align
-                            | Cả nhà quây quần bên bàn cờ Teamshow, cha mẹ và con cái đều "đánh cờ" được, mỗi nước cờ là một bài học thú vị cho con...   
-                    .col.s12.m4.card-panel.grey.lighten-4
+                            | Cả nhà quây quần bên bàn cờ Teamshow, cha mẹ và con cái đều "đánh cờ" được, mỗi nước cờ là một bài học thú vị cho con... 
+                            a(href) Xem thêm 
+                    .col.s12.m4.card-panel.grey.lighten-4.hoverable
                         h3.icons.main-color-text 
                             i.fa.fa-building.benefitIcon1
-                        h4 Teamshow Indoor
+                        h4.black-text Teamshow Indoor
                         p.left-align
-                            | Một không gian phòng dành cho trận đấu Teamshow hào hứng, các đội chơi lần lượt vượt qua thử thách kiến thức của BTC...
-                    .col.s12.m4.card-panel
+                            | Một không gian phòng dành cho trận đấu Teamshow hào hứng, các đội chơi lần lượt vượt qua thử thách kiến thức của BTC... 
+                            a(href) Xem thêm
+                    .col.s12.m4.card-panel.hoverable
                         h3.icons.main-color-text 
                             i.fa.fa-meh-o.benefitIcon1
-                        h4 Teamshow Me
+                        h4.black-text Teamshow Me
                         p.left-align
-                            | Một mình 1 máy tính hoặc thiết bị di động, bạn vẫn có thể khám phá kỹ năng bản thân và tìm thấy các cơ hội nghề nghiệp tuyệt vời ...
-                
+                            | Một mình 1 máy tính hoặc thiết bị di động, bạn vẫn có thể khám phá kỹ năng bản thân và tìm thấy các cơ hội nghề nghiệp tuyệt vời... 
+                            a(href) Xem thêm
                 div(style="margin-top:-20px").row.center 
-                    .col.s12.m4.card-panel
+                    .col.s12.m4.card-panel.hoverable
                         h3.icons.main-color-text 
                             i.fa.fa-globe.benefitIcon1
-                        h4 Teamshow Online
+                        h4.black-text Teamshow Online
                         p.left-align
-                            | Đôi khi không nhất thiết phải tư duy để chiến thắng trí tuệ nhân tạo của máy tính, chúng ta chơi game online để thắng những phần quà tài trợ hấp dẫn.....   
-                    .col.s12.m4.card-panel.grey.lighten-4
+                            | Đôi khi không nhất thiết phải tư duy để chiến thắng trí tuệ nhân tạo của máy tính, chúng ta chơi online giành những phần quà tài trợ hấp dẫn... 
+                            a(href) Xem thêm
+                    .col.s12.m4.card-panel.grey.lighten-4.hoverable
                         h3.icons.main-color-text 
                             i.fa.fa-skyatlas.benefitIcon1
-                        h4 Teamshow Outdoor
+                        h4.black-text Teamshow Outdoor
                         p.left-align
-                            | Các đội team building phải vận dụng mọi kỹ năng về thể chất để đạt được số điểm cao nhất, một "trò chơi mật thư" ở cấp độ thực hành cao nhất..
-                    .col.s12.m4.card-panel
+                            | Các đội team building phải vận dụng mọi kỹ năng về thể chất để đạt được số điểm cao nhất, một "trò chơi mật thư" ở cấp độ thực hành cao nhất... 
+                            a(href) Xem thêm
+                    .col.s12.m4.card-panel.hoverable
                         h3.icons.main-color-text 
                             i.fa.fa-car.benefitIcon1
-                        h4 Teamshow Adventure
+                        h4.black-text Teamshow Adventure
                         p.left-align
-                            | Đua xe Rally? Caravan? Phượt có tổ chức? Teamshow là một cấu trúc cho các giải đấu lớn trên mọi nẻo đường mạo hiểm...
+                            | Đua xe Rally? Caravan? Phượt có tổ chức? Teamshow là một cấu trúc cho các giải đấu lớn trên mọi nẻo đường du lịch thể thao mạo hiểm... 
+                            a(href) Xem thêm
         
         .container 
             div(style="margin-bottom:40px;").divider
             .row 
-                h2.ads.center.main-color-text Dù bạn là ai, hãy bắt đầu là Teamshower ngay hôm nay! 
+                h2.ads.center.main-color-text Dù bạn là ai, hãy trở thành Teamshow-er ngay hôm nay! 
         section
             .container 
                 .row.col.s12.m12.card-panel
@@ -226,65 +232,72 @@ block content
                                         a(href="") Hãy tổ chức giải Teamshwo Corp. hàng tháng với hệ thống tính điểm khoa học, và trận CHUNG KẾT tại Teamshow Outdoor. Why not? 
 
         div(style="margin-top:40px").divider
-        section().white
-            .container
+        section().orange.lighten-4
+            .container-fluid
                 .row
-                    .col.s12.m8 
-                        h2.right Email:  
+                    .col.s12.m9
+                        h2.right EMAIL:   
                             span.main-color-text teamshow.vn@gmail.com 
-                            | hoặc làm thành viên    
-                    .col.s12.m4
+                            | HOẶC THAM GIA THÀNH VIÊN 
+                    .col.s12.m3
                         .input-field
-                            a(href="/signup", style="margin-top:5px;").btn.main-color Đăng ký
+                            a(href="/signup", style="margin-top:2px;").btn.main-color Đăng ký
 
+        div(style="margin-top:80px")
         .container 
             .row 
-                h2.ads.center Partner với Teamshow cùng những lợi ích không thể bỏ qua... 
+                h2.ads.main-color-text.center Partner với Teamshow cùng những lợi ích không thể bỏ qua... 
         section#testi
                 .row 
                     .col.s12.m6
                         .row 
                             .col.s12.m6
-                                img(src="http://hanoimoi.com.vn/Uploads/chiennv/2012/10/29/dhocsing1.jpg" alt="Teamshow").responsive-img
+                                img(src="http://www.cornellcollege.edu/rise-up/images/Rise%20Up%20Jump%20Picture.jpg" alt="Teamshow").responsive-img
                             .col.s12.m6 
-                                h4 Chương trình Teamshow Inside 
+                                h4.black-text Chương trình Teamshow Inside 
                                 .divider
                                 p
-                                    | Tổ chức sự kiện offline tại các cafe đăng ký. Bạn có thể là người dẫn chương trình và cơ hội trở thành Event Organizer với Teamshow 
-                                p Chương trình dành cho các bạn trẻ có thời gian ngoài giờ và sinh viên thích nghề MC
+                                    | Tổ chức sự kiện offline tại các cafe đăng ký. Bạn có thể là người dẫn chương trình và cơ hội trở thành Event Organizer 
+                                p Chương trình dành cho các bạn trẻ có thời gian ngoài giờ và sinh viên thích nghề MC... 
+                                a(href) Xem thêm
          
                     .col.s12.m6 
                         .row 
                             .col.s12.m6
-                                img(src="http://www.hivery.com/wp-content/uploads/2015/02/startUpSmart.png" alt="Teamshow").responsive-img
+                                img(src="http://www.nursing.upenn.edu/innovation/health-technology-lab/PublishingImages/00-News_FeatureBanner_110915_702_336_--250x350.jpg" alt="Teamshow").responsive-img
                             .col.s12.m6 
-                                h4  Startup ! Cộng tác viên Freelancer
+                                h4.black-text  Startup ! Cộng tác viên Freelancer
                                 .divider
                                 p
                                     | Bạn đã có kinh nghiệm tổ chức event hoặc tour teambuilding nhưng cần sự tươi mới, hấp dẫn, mạo hiểm? 
-                                p Teamshow Adventure sẽ cung cấp chương trình cho bạn, kể cả bạn muốn khởi nghiệp cùng Teamshow  
+                                p Teamshow Adventure sẽ cung cấp chương trình cho bạn, kể cả bạn muốn khởi nghiệp cùng Teamshow... 
+                                a(href) Xem thêm
+
+
                 .row 
                     .col.s12.m6
                         .row 
                             .col.s12.m6
-                                img(src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQCLymhfYxh-NonyiTwK_DSr5XT-uLmUGSwJOFU3_Ltg23eFASx7w" alt="Teamshow").responsive-img
+                                img(src="http://www.sydneyprops.com.au/media/catalog/category/brand-activation_2.jpg" alt="Teamshow").responsive-img
                             .col.s12.m6 
-                                h4  Tài trợ Teamshow Sponsor
+                                h4.black-text  Tài trợ Teamshow Sponsor
                                 .divider
                                 p  Bạn muốn kích hoạt thương hiệu? 
-                                p Hãy liên hệ Teamshow. Bạn có thể "mua trước" 10-20-100 chương trình Teamshow offline diễn ra. Nội dung event sẽ xoay quanh công ty bạn  
-                                P Ngoài ra, bạn có thể đặt banner online và mọi người chơi đều thấy thương hiệu, trả lời câu hỏi về thương hiệu của bạn... khách hàng có sẵn!
+                                p  Bạn hoàn toàn có thể "mua trước" 10-20-100 chương trình Teamshow offline diễn ra hàng tuần. Nội dung event sẽ xoay quanh công ty bạn  
+                                P Ngoài ra, đặt banner online và mọi người chơi đều thấy thương hiệu, trả lời câu hỏi về thương hiệu của bạn... khách hàng có sẵn!... 
+                                a(href) Xem thêm
                     .col.s12.m6
                         .row 
                             .col.s12.m6
-                                img(src="https://engonetrca2.blob.core.windows.net/assets/uploads/img/en-solutions-feature-partners-overview350x250.png" alt="Teamshow").responsive-img
+                                img(src="https://bluffers.com/wp-content/uploads/2015/08/cover_business_3d_350px.jpg" alt="Teamshow").responsive-img
                             .col.s12.m6 
-                                h4  Kinh doanh cùng Teamshow
+                                h4.black-text  Kinh doanh cùng Teamshow
                                 .divider
                                 p  Bạn muốn kinh doanh? 
                                 p Hãy tham gia các sự kiện online, offline và đưa sản phẩm vào các chương trình. 
-                                P Bạn có thể kêu gọii nguồn tài trợ và tổ chức sự kiện cho Teamshow  
-                                P Teamshow sẽ huấn luyện bạn thành chuyên nghiệp bằng các khóa Marketing online, công cụ online, bộ KIT sale và ... khách hàng có sẵn!
+                                P Bạn có thể kêu gọi nguồn tài trợ và tổ chức sự kiện cho Teamshow  
+                                P Teamshow sẽ huấn luyện bạn thành Sales chuyên nghiệp bằng các khóa Teamshow Digital Marketing, Teamshow online, bộ KIT và ... khách hàng có sẵn!... 
+                                a(href) Xem thêm
         .divider
         //- section()#subcribe
         //-     .container 
@@ -295,20 +308,29 @@ block content
         //-                     //- Your embedded comments code
         //-                     div(class="fb-comments", style="height:1000px;", data-href="https://www.facebook.com/strategyTeamShow/" data-width="800" data-numposts="10")
         
-        
-        section(style="height:300px; margin-bottom:-20px").parallax-container 
+        div(style="margin-top:40px")
+        section().orange.lighten-4
+            .container-fluid
+                .row
+                    .col.s12.m7
+                        h2.right Cẩm nang kinh doanh cùng Teamshow   
+                    .col.s12.m5
+                        .input-field
+                            a(href="/signup?book=dowload", style="margin-top:2px;").btn.main-color Download
+
+        section(style="height:300px; margin-top:-20px;margin-bottom:-20px;").parallax-container 
                 div.parallax
-                    img(src="/img/cchoabinh.jpg" alt="Teamshow")
+                    img(src="/img/address.jpg" alt="Teamshow")
 
         footer.page-footer.grey.darken-3
             .row
-                .col.m5.s12.white-text
+                .col.m4.s12.white-text
                     h5 Contact Us 
                     p Teamshow đã đăng ký quyền bảo hộ thương hiệu và sản phẩm 
                     p Hãy liên hệ để được thông tin cụ thể 
                     ul.vcard
                         li.fn Teamshow 
-                        li.org Liên hệ Mr.Hân (tác giả) , Mr.Vũ (CEO)
+                        li.org Liên hệ Mr.Hân (Author) , Mr.Vũ (Leader)
                         li.tel Mr. Hân (0969 879 399), Mr. Vũ (0937 980 003)
                         li
                             | Email: 
@@ -317,11 +339,8 @@ block content
                             | Website: 
                             a(href="/").url www.teamshow.vn
                             
-                    .divider
-                    //- fb like
-                    div(style="color:#fff; padding-top:10px" class="fb-like" data-href="https://www.facebook.com/tuvandinhcuduhoc/?fref=ts" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true")
 
-                .col.m3.s12
+                .col.m2.s12
                     h5.white-text Websites  
                     ul
                         li
@@ -332,31 +351,46 @@ block content
                             a(href='http://strategybizshow.com') StrategyBizshow.com
                         li
                             a(href='http://strategygameshow.com') StrategyGameshow.com 
-                        li
-                            a(href='http://muidinh.club') MuiDinh.club 
-                    .divider
-                    h5.white-text Liên kết cộng tác
+                .col.m2.s12
+                    h5.white-text Học thuật
                     ul
                         li
-                            a(href='http://muidinh.club') Mui Dinh Club 
+                            a(href='http://strategyteamshow.com/chien-luoc/ly-thuyet-tro-choi/') Lý thuyết trò chơi 
                         li
-                            a(href='http://www.openmize.com') Đối tác sales
+                            a(href='http://strategyteamshow.com/chien-luoc/phoi-hop-dong-doi/') Phối hợp đồng đội 
                         li
-                            a(href='http://www.viennguyen.com') Đối tác công nghệ
+                            a(href='http://strategyteamshow.com/chien-luoc/lien-minh-doi-tac/') Liên minh đối tác
                         li
-                            a(href='http://www.bestwebdesign.top') Đối tác thực hiện website 
+                            a(href='http://strategyteamshow.com/chien-luoc/phuc-vu-khach-hang/') Phục vụ khách hàng 
                         li
-                            a(href='http://www.tanyoli.vn') Đối tác du lịch nội địa 
-
+                            a(href='http://strategyteamshow.com/') Quan hệ công chúng 
+                    .divider 
+                    h5.white-text Kỹ năng rèn luyện
+                    ul
+                        li
+                            a(href='http://strategyteamshow.com/ky-nang/nhan-thuc-moi-truong/') Nhận thức
+                        li
+                            a(href='http://strategyteamshow.com/ky-nang/meta-cam-thuc/') Cảm thức 
+                        li
+                            a(href='http://strategyteamshow.com/ky-nang/ke-hoach-chien-luoc/') Tư duy chiến lược
+                        li
+                            a(href='http://strategyteamshow.com/ky-nang/hanh-dong-huong-dich/') Hành động mục tiêu 
                 .col.m4.s12
                     //- Facebook
 
-                    <iframe src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/strategyTeamShow/&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1014333618610128" width="340" height="300" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                    <iframe src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/strategyTeamShow/&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1014333618610128" width="340" height="400" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
     
                     //- Twitter
                     //- a(class="twitter-timeline"  href="https://twitter.com/hashtag/dinhcuduhoc" data-widget-id="763968988372054018") #dinhcuduhoc Tweets
 
-          
+            .footer-copyright.grey.darken-2
+                .container
+                    | Liên kết:   
+                    a(href='http://muidinh.club') Mui Dinh Club | 
+                    a(href='http://www.openmize.com') Sales | 
+                    a(href='http://www.viennguyen.com') Công nghệ | 
+                    a(href='http://www.bestwebdesign.top') Web design |  
+                    a(href='http://www.tanyoli.vn') Du lịch 
             .footer-copyright.grey.darken-4
                 .container
                     | &copy; 2014 Teamshow.vn
