@@ -3,7 +3,7 @@ var app = require('../server'); //Require our app
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "0.0.0.0"; //-- openshift
 var port      = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT 
-                || 5000; //8000 is for http and 8443 is for https
+                || 8000; //8000 is for http and 8443 is for https
 
 app.set('port', port);
 app.set('ip',  ipaddress);

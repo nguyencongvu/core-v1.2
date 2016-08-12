@@ -1,6 +1,6 @@
 var modelName = 'page'; //--edit here movie to user modelName = viewName
 var routePath = '/pages';  //--edit here -- routePath+'/:id'
-var homepage = "page/dinhcu" //--EDIT homepage 
+var homepage = "page/teamshow" //--EDIT homepage 
 
 var express = require('express');
 var router = express.Router();

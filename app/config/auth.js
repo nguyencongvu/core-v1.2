@@ -1,5 +1,5 @@
 var appDomain = "localhost:5000"; //-- local 
-appDomain = "dinhcu.top";   //--EDIT  
+appDomain = "teamshow.sanphamoi.top";   //--EDIT  
 
 module.exports = {
     'facebookAuth' : {

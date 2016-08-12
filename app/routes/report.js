@@ -2,7 +2,7 @@ var modelName = 'report'; //--edit here movie to user modelName = viewName
 var routePath = '/reports';  //--edit here -- routePath+'/:id'
 var Model = require('../models/'+modelName);
 var User = require('../models/user');
-var config = require('../config/config');
+var config = require('../config/app');
 // var async = require('async');
 var express = require('express');
 var router = express.Router();

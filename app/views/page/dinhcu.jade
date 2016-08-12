@@ -2,14 +2,15 @@ extends layout_web
 block title 
     title Dinh cu Uc, USA | Call: (08) 6684 8953
     meta(http-equiv="content-type", content="#{contentType}; charset=UTF-8")
-    meta()
+    meta(name="keywords", content="Dinh cu Uc, du hoc Uc")
+    meta(name="description", content="Dinh cu Uc, du hoc Uc, Du lich Uc, Dinh cu USA, du hoc USA, du lich USA, tu van dinh cu Uc, tu van du hoc Uc")
 
 block content 
     div#seo
         div.navbar-fixed
             nav(style="height:80px; padding-top:10px")#nav.z-depth-2
                 div.nav-wrapper
-                    a(style="font-size:180%; margin-left:20px").left Định cư, du học, du lịch AU, USA
+                    a(style="font-size:180%; margin-left:20px").left Định cư, du học, du lịch Úc, USA
                     //- menu ul in small device
                     ul(style="font-size:150%").right
                         li
@@ -21,7 +22,7 @@ block content
                         //- li
                         //-     a().fa.fa-youtube.social4
                         li
-                            a(href="mailto:lephanbaokhanh@gmail.com").fa.fa-envelope-o.social5    
+                            a(href="mailto:dinhcu.top@gmail.com").fa.fa-envelope-o.social5    
         
         div(style="height:650px").parallax-container 
             div.parallax
@@ -34,7 +35,7 @@ block content
                         .col.s12.m5 
                             .card-panel
                                 h2 Thay đổi cuộc sống? 
-                                p Không phải tất cả các hồ sơ đều đậu, nhưng chắc chắn anh chị sẽ nhận được sự chuẩn bị hồ sơ có trình tự, an toàn, và chi phí rẻ nhất và uy tín nhất.
+                                p Không phải tất cả các hồ sơ đều passed, nhưng chắc chắn anh chị sẽ nhận được sự chuẩn bị hồ sơ có trình tự, an toàn, với chi phí rẻ nhất và uy tín nhất.
                                 p Anh chị sẽ gặp trực tiếp chúng tôi ngay sau cuộc gọi đầu tiên.  
                                 //- .input-field
                                 //-     input(type="email", placeholder="email@domain.com").white.grey-text
@@ -48,7 +49,7 @@ block content
         .container 
             div(style="margin-bottom:40px;").divider
             .row 
-                h2.ads.center Hơn 90% hồ sơ đã "passed" trong suốt 10 năm qua
+                h2.ads.center.main-color-text Hơn 90% hồ sơ đã "passed" trong suốt 10 năm qua
                 
         section#two
             .container  
@@ -101,32 +102,31 @@ block content
                             .col.s12.m6 
                                 h4  Hôn phu của bạn ở Úc?
                                 p
-                                    | Chúng tôi tư vấn bổ sung các thủ tục giấy tờ về hôn nhân, tường trình về quá trình tìm hiểu và sự chuẩn mực trong quan hệ hai bên từ lúc bắt đầu đến khi có quyết định kết hợp tại Úc 
+                                    | Chúng tôi tư vấn bổ sung các thủ tục giấy tờ về hôn nhân, về quá trình tìm hiểu và sự chuẩn mực trong quan hệ hai bên từ lúc bắt đầu đến khi có quyết định kết hợp tại Úc 
         .divider
-        section(style="margin-bottom:-20px")#subcribe.grey.lighten-3
+        section()#subcribe
             .container 
                 .row 
-                    //- Load Facebook SDK for JavaScript
-                    div(id="fb-root")
-                        //- Your embedded comments code
-                        div(class="fb-comments" data-href="https://www.facebook.com/tuvandinhcuduhoc/?fref=nf" data-width="800" data-numposts="10")
-
-                //- .row
-                //-     .col.s12.m4
-                //-         h5(style="margin-top:25px;").main-color-text.right Email to subcribe 
-                //-     .col.s12.m6
-                //-         .input-field 
-                //-             input(style="font-size:160%", type="email").white.grey-text
-                //-     .col.s12.m2
-                //-         .input-field 
-                //-             a(style="margin-top:5px;").btn.main-color Subcribe
+                    .card-panel
+                        //- Load Facebook SDK for JavaScript
+                        div(id="fb-root")
+                            //- Your embedded comments code
+                            div(class="fb-comments", style="height:1000px;", data-href="https://www.facebook.com/tuvandinhcuduhoc/?fref=nf" data-width="800" data-numposts="10")
+        section()
+            .container
+                .row
+                    .col.s12.m8 
+                        h2.right Email:  
+                            span.main-color-text dinhcu.top@gmail.com 
+                            | hoặc Liên hệ ngay   
+                    .col.s12.m4
+                        .input-field
+                            a(href="tel:0866848953", style="margin-top:5px;").btn.main-color Call: (08)6684 8953
         
         section(style="height:300px; margin-bottom:-20px").parallax-container 
                 div.parallax
                     img(src="/img/cchoabinh.jpg" alt="Dinh cu Uc, USA")
 
-        //- section(style="height:270px; width:100%;background-repeat: no-repeat; margin-bottom:-20px; background:url(/img/cchoabinh.jpg)")
-            
         footer.page-footer.grey.darken-3
             .row
                 .col.m5.s12.white-text
@@ -139,11 +139,15 @@ block content
                         li.tel (08) 6684 8953
                         li
                             | Email: 
-                            a(href="mailto:lephanbaokhanh@gmail.com").email lephanbaokhanh@gmail.com | 
                             a(href="mailto:dinhcu.top@gmail.com").email dinhcu.top@gmail.com 
                         li
                             | Website: 
                             a(href="/").url www.dinhcu.top
+                            
+                    .divider
+                    //- fb like
+                    div(style="color:#fff; padding-top:10px" class="fb-like" data-href="https://www.facebook.com/tuvandinhcuduhoc/?fref=ts" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true")
+
                 .col.m3.s12
                     h5.white-text Tham khảo  
                     ul
@@ -168,12 +172,18 @@ block content
                             a(href='http://www.tanyoli.vn') Đối tác du lịch nội địa 
 
                 .col.m4.s12
-                    //- h5.white-text Social
-                    <iframe src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/tuvandinhcuduhoc/?fref=ts&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1014333618610128" width="340" height="300" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                    //- Facebook
+
+                    //- <iframe src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/tuvandinhcuduhoc/?fref=ts&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1014333618610128" width="340" height="300" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+    
+                    //- Twitter
+                    a(class="twitter-timeline"  href="https://twitter.com/hashtag/dinhcuduhoc" data-widget-id="763968988372054018") #dinhcuduhoc Tweets
+
+          
             .footer-copyright.grey.darken-4
                 .container
-                    | &copy; 2014 Copyright Text
-                    a.grey-text.text-lighten-4.right(href='#!') More Links
+                    | &copy; 2016 Dinhcu.top
+                    a.grey-text.text-lighten-4.right(href='http://www.bestwebdesign.top') Designed by BestWebdesign.top 
     script.
         (function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
@@ -182,6 +192,10 @@ block content
           js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+
+
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+          
 
 
                                 

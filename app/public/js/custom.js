@@ -6,10 +6,10 @@ var colors = [
     "brown", "grey", "blue-grey", "black"      // 16 17 18 19
 ];
 
-colors = ['green', 'deep-purple']
+// colors = ['green', 'deep-purple']
 
 var i = getRandomInteger(0,2);
-// i = 3;
+i = 3;
 var COLOR = colors[i].toString();
 
 function getRandomInteger(min, max) {
