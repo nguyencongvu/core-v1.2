@@ -1,10 +1,10 @@
-var appDomain = "localhost:5000"; //-- local 
-appDomain = "teamshow.sanphamoi.top";   //--EDIT  
+var appDomain = "localhost:8000"; //-- local 
+// appDomain = "teamshow.sanphammoi.top";   //--EDIT  
 
 module.exports = {
     'facebookAuth' : {
-        'clientID'      : '866846263448510', // your App ID
-        'clientSecret'  : 'fe1cf18a001ae35b82684266c919eb08', // your App Secret
+        'clientID'      : '273800019669298', // your App ID
+        'clientSecret'  : 'ca492f45cb1323906c38cd3d12887be8', // your App Secret
         'callbackURL'   : 'http://'+appDomain+'/auth/facebook/callback', 
         'profileFields': ["id", "email", "gender", "about", "birthday", "cover"]
     },
@@ -15,7 +15,7 @@ module.exports = {
     },
     'googleAuth' : {
         'clientID'      : '873026146341-ce0605glrtsfebtiqt0vnsmd3k9nidfi.apps.googleusercontent.com',
-        'clientSecret'  : '923j9wnJZPWdsJEzahQz0egI',
+        'clientSecret'  : 'F7hC_zdqcBQ-PwoBYl-Gcj1E',
         'callbackURL'   : 'http://'+appDomain+'/auth/google/callback'
     }, 
     'mailer' : {
